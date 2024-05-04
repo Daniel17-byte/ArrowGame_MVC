@@ -18,6 +18,7 @@ public class CommandShowRegisterResult implements Command {
         boolean success = controller.getModel().register(controller.getUsernameProperty().getValue(), controller.getPasswordProperty().getValue(), controller.getUserTypeProperty().getValue());
 
         if (success) {
+            LanguageManager.loadLanguage(LanguageManager.fromStringToLocale(controller.getLanguageProperty().getValue()));
             GameView view = new GameView();
             Stage gameStage = new Stage();
 

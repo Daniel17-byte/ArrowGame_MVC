@@ -16,6 +16,7 @@ public class RegisterController {
     private final StringProperty usernameProperty = new SimpleStringProperty();
     private final StringProperty passwordProperty = new SimpleStringProperty();
     private final ObjectProperty<String> userTypeProperty = new SimpleObjectProperty<>();
+    private final ObjectProperty<String> languageProperty = new SimpleObjectProperty<>();
     private final CommandShowRegisterResult commandShowRegisterResult;
 
     public RegisterController() {

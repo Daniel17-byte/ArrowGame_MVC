@@ -1,5 +1,7 @@
 package org.danielsa.proiect_ps.controller;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import lombok.Getter;
@@ -14,6 +16,7 @@ public class LoginController {
     private final StringProperty resultLabelProperty = new SimpleStringProperty();
     private final StringProperty usernameProperty = new SimpleStringProperty();
     private final StringProperty passwordProperty = new SimpleStringProperty();
+    private final ObjectProperty<String> languageProperty = new SimpleObjectProperty<>();
     private final CommandShowLoginResult commandShowLoginResult;
     private final CommandOpenRegisterWindow commandOpenRegisterWindow;
 

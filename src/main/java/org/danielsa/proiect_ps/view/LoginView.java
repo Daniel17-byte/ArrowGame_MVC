@@ -18,35 +18,31 @@ public class LoginView extends Scene implements Observer {
     }
 
     public void initComponents() {
-        TextField usernameField;
-        PasswordField passwordField;
-        Button loginButton;
+        TextField usernameField = new TextField();
+        PasswordField passwordField = new PasswordField();
+        Button loginButton = new Button(LanguageManager.getString("loginButton"));
         Label resultLabel = new Label();
-        Button registerButton;
+        ComboBox<String> languageComboBox = new ComboBox<>();
+        Button registerButton = new Button(LanguageManager.getString("registerButton"));
 
         VBox root = (VBox) getRoot();
         root.setSpacing(10);
         root.setPadding(new Insets(10));
 
-        usernameField = new TextField();
         usernameField.setPromptText(LanguageManager.getString("usernameField"));
-
-        passwordField = new PasswordField();
         passwordField.setPromptText(LanguageManager.getString("passwordField"));
-
-        loginButton = new Button(LanguageManager.getString("loginButton"));
-
-        registerButton = new Button(LanguageManager.getString("registerButton"));
+        languageComboBox.getItems().addAll("ENGLISH", "ROMANIAN", "DEUTSCH", "ITALIAN", "FRENCH");
+        languageComboBox.setPromptText("Language ");
 
         loginButton.setOnAction(event -> controller.showLoginResult());
-
         registerButton.setOnAction(event -> controller.openRegisterWindow());
 
         Bindings.bindBidirectional(resultLabel.textProperty(), controller.getResultLabelProperty());
         Bindings.bindBidirectional(usernameField.textProperty(), controller.getUsernameProperty());
         Bindings.bindBidirectional(passwordField.textProperty(), controller.getPasswordProperty());
+        Bindings.bindBidirectional(languageComboBox.valueProperty(), controller.getLanguageProperty());
 
-        root.getChildren().addAll(usernameField, passwordField, loginButton, resultLabel, registerButton);
+        root.getChildren().addAll(usernameField, passwordField, languageComboBox, loginButton, resultLabel, registerButton);
     }
 
     @Override

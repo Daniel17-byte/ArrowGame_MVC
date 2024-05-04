@@ -17,24 +17,22 @@ public class RegisterView extends Scene implements Observer {
     }
 
     public void initComponents() {
-        TextField usernameField;
-        PasswordField passwordField;
-        Button registerButton;
+        TextField usernameField = new TextField();
+        PasswordField passwordField = new PasswordField();
+        Button registerButton = new Button(LanguageManager.getString("registerButton"));
         Label resultLabel = new Label();
         ComboBox<String> userTypeComboBox = new ComboBox<>();
+        ComboBox<String> languageComboBox = new ComboBox<>();
 
         VBox root = (VBox) getRoot();
         root.setSpacing(10);
-        usernameField = new TextField();
+
         usernameField.setPromptText(LanguageManager.getString("usernameField"));
-
-        passwordField = new PasswordField();
         passwordField.setPromptText(LanguageManager.getString("passwordField"));
-
         userTypeComboBox.getItems().addAll(LanguageManager.getStringForKey("userTypeComboBox", "valueAdmin"), LanguageManager.getStringForKey("userTypeComboBox", "valuePlayer"));
         userTypeComboBox.setPromptText(LanguageManager.getStringForKey("userTypeComboBox", "label"));
-
-        registerButton = new Button(LanguageManager.getString("registerButton"));
+        languageComboBox.getItems().addAll("ENGLISH", "ROMANIAN", "DEUTSCH", "ITALIAN", "FRENCH");
+        languageComboBox.setPromptText("Language ");
 
         registerButton.setOnAction(event -> controller.showRegisterResult());
 
@@ -42,8 +40,9 @@ public class RegisterView extends Scene implements Observer {
         Bindings.bindBidirectional(usernameField.textProperty(), controller.getUsernameProperty());
         Bindings.bindBidirectional(passwordField.textProperty(), controller.getPasswordProperty());
         Bindings.bindBidirectional(userTypeComboBox.valueProperty(), controller.getUserTypeProperty());
+        Bindings.bindBidirectional(languageComboBox.valueProperty(), controller.getLanguageProperty());
 
-        root.getChildren().addAll(usernameField, passwordField, userTypeComboBox, registerButton);
+        root.getChildren().addAll(usernameField, passwordField, userTypeComboBox, languageComboBox, registerButton);
     }
 
     @Override

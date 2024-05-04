@@ -15,6 +15,7 @@ public class CommandShowLoginResult implements Command {
 
     @Override
     public void execute() {
+        LanguageManager.loadLanguage(LanguageManager.fromStringToLocale(controller.getLanguageProperty().getValue()));
         boolean success = controller.getModel().authenticate(controller.getUsernameProperty().getValue(), controller.getPasswordProperty().getValue());
 
         if (success) {

@@ -15,7 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        LanguageManager.loadLanguage(CustomLocale.ITALIAN);
+        LanguageManager.loadLanguage(CustomLocale.ENGLISH);
 
         LoginView view = new LoginView();
 
