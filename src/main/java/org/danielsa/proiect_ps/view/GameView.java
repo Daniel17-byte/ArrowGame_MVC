@@ -112,7 +112,7 @@ public class GameView extends Scene implements Observer {
         AnchorPane.setTopAnchor(levelSelectChoiceBox, 151.0);
         AnchorPane.setLeftAnchor(levelSelectChoiceBox, 68.0);
 
-        Label boardLabel = new Label("Board:");
+        Label boardLabel = new Label("Board");
         AnchorPane.setTopAnchor(boardLabel, 153.0);
         AnchorPane.setLeftAnchor(boardLabel, 22.0);
 

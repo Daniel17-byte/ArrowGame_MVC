@@ -1,6 +1,6 @@
 package org.danielsa.proiect_ps.model;
 
-import org.danielsa.proiect_ps.DatabaseService;
+import org.danielsa.proiect_ps.utils.DatabaseService;
 import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.view.Observer;
 

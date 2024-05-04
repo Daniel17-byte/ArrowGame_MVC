@@ -1,0 +1,24 @@
+{
+  "usernameField" : "Nume de utilizator",
+  "passwordField" : "Parolă",
+  "userTypeComboBox" : {
+    "label" : "Selectați Tipul de Utilizator",
+    "valueAdmin" : "ADMIN",
+    "valuePlayer" : "JUCĂTOR"
+  },
+  "registerButton" : "Înregistrare",
+  "loginButton" : "Autentificare",
+  "addButton" : "Adăugare",
+  "updateButton" : "Actualizare",
+  "deleteButton" : "Ștergere",
+  "userNameColumn" : "Nume de Utilizator",
+  "userTypeColumn" : "Tip de Utilizator",
+  "gamesWonColumn" : "Jocuri Câștigate",
+  "greetingLabel" : "Salut",
+  "startGameButton" : "Începeți Jocul",
+  "restartButton" : "Restartare Joc",
+  "undoButton" : "Anulare",
+  "boardLabel" : "Tablă",
+  "manageUsersButton" : "Gestionați Utilizatorii",
+  "gamesWonText" : "Jocuri câștigate: "
+}

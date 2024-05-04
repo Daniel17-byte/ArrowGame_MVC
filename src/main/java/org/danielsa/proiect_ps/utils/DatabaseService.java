@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps;
+package org.danielsa.proiect_ps.utils;
 
 import lombok.Getter;
 import org.danielsa.proiect_ps.model.UserModel;

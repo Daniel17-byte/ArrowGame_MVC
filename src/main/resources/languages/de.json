@@ -1,0 +1,24 @@
+{
+  "usernameField" : "Benutzername",
+  "passwordField" : "Passwort",
+  "userTypeComboBox" : {
+    "label" : "Benutzertyp auswählen",
+    "valueAdmin" : "ADMIN",
+    "valuePlayer" : "SPIELER"
+  },
+  "registerButton" : "Registrieren",
+  "loginButton" : "Einloggen",
+  "addButton" : "Hinzufügen",
+  "updateButton" : "Aktualisieren",
+  "deleteButton" : "Löschen",
+  "userNameColumn" : "Benutzername",
+  "userTypeColumn" : "Benutzertyp",
+  "gamesWonColumn" : "Gewonnene Spiele",
+  "greetingLabel" : "Hallo",
+  "startGameButton" : "Spiel Starten",
+  "restartButton" : "Spiel Neustarten",
+  "undoButton" : "Rückgängig",
+  "boardLabel" : "Brett",
+  "manageUsersButton" : "Benutzer Verwalten",
+  "gamesWonText" : "Gewonnene Spiele: "
+}

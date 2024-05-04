@@ -1,0 +1,24 @@
+{
+  "usernameField" : "Username",
+  "passwordField" : "Password",
+  "userTypeComboBox" : {
+    "label" : "Select User Type",
+    "valueAdmin" : "ADMIN",
+    "valuePlayer" : "PLAYER"
+  },
+  "registerButton" : "Register",
+  "loginButton" : "Login",
+  "addButton" : "Add",
+  "updateButton" : "Update",
+  "deleteButton" : "Delete",
+  "userNameColumn" : "Username",
+  "userTypeColumn" : "User Type",
+  "gamesWonColumn" : "Games Won",
+  "greetingLabel" : "Hi",
+  "startGameButton" : "Start Game",
+  "restartButton" : "Restart Game",
+  "undoButton" : "Undo",
+  "boardLabel" : "Board",
+  "manageUsersButton" : "Manage Users",
+  "gamesWonText" : "Games won : "
+}

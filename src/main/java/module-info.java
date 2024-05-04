@@ -8,6 +8,7 @@ module org.danielsa.proiect_ps {
     requires spring.beans;
     requires spring.core;
     requires spring.context;
+    requires org.json;
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
@@ -28,4 +29,6 @@ module org.danielsa.proiect_ps {
     exports org.danielsa.proiect_ps.controller;
     opens org.danielsa.proiect_ps.model to javafx.fxml;
     exports org.danielsa.proiect_ps.controller.commands.admin;
+    exports org.danielsa.proiect_ps.utils;
+    opens org.danielsa.proiect_ps.utils to javafx.fxml;
 }
