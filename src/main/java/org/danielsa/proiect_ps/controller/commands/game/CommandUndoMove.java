@@ -11,22 +11,22 @@ import org.danielsa.proiect_ps.controller.GameController;
 import java.io.File;
 
 public class CommandUndoMove implements Command {
-    private final GameController viewModel;
+    private final GameController controller;
 
-    public CommandUndoMove(GameController viewModel) {
-        this.viewModel = viewModel;
+    public CommandUndoMove(GameController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        MoveModel sysMoveModel = viewModel.getModel().undo();
-        MoveModel usrMoveModel = viewModel.getModel().undo();
+        MoveModel sysMoveModel = controller.getModel().undo();
+        MoveModel usrMoveModel = controller.getModel().undo();
         if(sysMoveModel != null) removeArrow(sysMoveModel.getX(), sysMoveModel.getY());
         if(usrMoveModel != null) removeArrow(usrMoveModel.getX(), usrMoveModel.getY());
     }
 
     private void removeArrow(int row, int column) {
-        viewModel.getBoardProperty().getValue().getChildren().stream()
+        controller.getBoardProperty().getValue().getChildren().stream()
                 .filter(node -> node instanceof ImageView)
                 .map(node -> (ImageView) node)
                 .filter(imageView -> {

@@ -9,25 +9,25 @@ import org.danielsa.proiect_ps.controller.GameController;
 import java.io.File;
 
 public class CommandClearBoard implements Command {
-    private final GameController viewModel;
+    private final GameController controller;
 
-    public CommandClearBoard(GameController viewModel) {
-        this.viewModel = viewModel;
+    public CommandClearBoard(GameController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        if(viewModel.getBoardProperty().getValue() != null){
-            viewModel.getModel().clearBoard();
-            viewModel.getBoardProperty().getValue().getChildren().stream()
+        if(controller.getBoardProperty().getValue() != null){
+            controller.getModel().clearBoard();
+            controller.getBoardProperty().getValue().getChildren().stream()
                     .filter(node -> node instanceof ImageView)
                     .map(node -> (ImageView) node)
                     .forEach(imageView -> imageView.setImage(new Image(new File(Main.path + "img.png").toURI().toString())));
         }
-        if(viewModel.getLevelSelectChoiceBoxProperty().getValue().equals("4x4")){
-            viewModel.getBoardProperty().setValue(viewModel.getGridSmallBoardProperty().getValue());
+        if(controller.getLevelSelectChoiceBoxProperty().getValue().equals("4x4")){
+            controller.getBoardProperty().setValue(controller.getGridSmallBoardProperty().getValue());
         }else {
-            viewModel.getBoardProperty().setValue(viewModel.getGridLargeBoardProperty().getValue());
+            controller.getBoardProperty().setValue(controller.getGridLargeBoardProperty().getValue());
         }
     }
 }

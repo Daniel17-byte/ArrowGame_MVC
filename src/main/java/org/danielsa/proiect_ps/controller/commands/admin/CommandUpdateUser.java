@@ -5,22 +5,22 @@ import org.danielsa.proiect_ps.model.UserModel;
 import org.danielsa.proiect_ps.controller.AdminController;
 
 public class CommandUpdateUser implements Command {
-    private final AdminController viewModel;
+    private final AdminController controller;
 
-    public CommandUpdateUser(AdminController viewModel) {
-        this.viewModel = viewModel;
+    public CommandUpdateUser(AdminController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        UserModel updatedUser = viewModel.getModel().updateUser(viewModel.getSelectedUserProperty().getValue().getUserName(), viewModel.getUsernameProperty().getValue(), viewModel.getPasswordProperty().getValue(), viewModel.getUserTypeProperty().getValue());
+        UserModel updatedUser = controller.getModel().updateUser(controller.getSelectedUserProperty().getValue().getUserName(), controller.getUsernameProperty().getValue(), controller.getPasswordProperty().getValue(), controller.getUserTypeProperty().getValue());
 
         if (updatedUser == null) {
             System.out.println("User not updated!");
             return;
         }
 
-        viewModel.getUserTableViewProperty().getValue().getItems().clear();
-        viewModel.getUserTableViewProperty().getValue().getItems().addAll(viewModel.getModel().getUsers());
+        controller.getUserTableViewProperty().getValue().getItems().clear();
+        controller.getUserTableViewProperty().getValue().getItems().addAll(controller.getModel().getUsers());
     }
 }

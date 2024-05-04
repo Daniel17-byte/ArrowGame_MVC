@@ -20,5 +20,16 @@
   "undoButton" : "Undo",
   "boardLabel" : "Board",
   "manageUsersButton" : "Manage Users",
-  "gamesWonText" : "Games won : "
+  "gamesWonText" : "Games won : ",
+  "adminPanel" : "Admin Panel",
+  "arrowGame" : "Arrow Game",
+  "loginFailed" : "Login failed. Please try again.",
+  "registerFailed" : "Register failed. Please try again.",
+  "invalidMove" : "Invalid Move.",
+  "directionNotSelected" : "Direction not selected.",
+  "user" : "User",
+  "computer" : "Computer",
+  "error" : "Error.",
+  "wins" : " wins!",
+  "endGame" : "Game end."
 }

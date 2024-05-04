@@ -13,10 +13,10 @@ import org.danielsa.proiect_ps.controller.GameController;
 import java.io.File;
 
 public class CommandInitializeButton {
-    private final GameController viewModel;
+    private final GameController controller;
 
-    public CommandInitializeButton(GameController viewModel) {
-        this.viewModel = viewModel;
+    public CommandInitializeButton(GameController controller) {
+        this.controller = controller;
     }
 
     public void execute(Button button) {
@@ -40,7 +40,7 @@ public class CommandInitializeButton {
 
     private void clickedArrowButton(ActionEvent actionEvent){
         Button button = (Button)actionEvent.getSource();
-        viewModel.getSelectedDirectionProperty().setValue(button.getText());
+        controller.getSelectedDirectionProperty().setValue(button.getText());
     }
 
     private Background setBgImage(String name){

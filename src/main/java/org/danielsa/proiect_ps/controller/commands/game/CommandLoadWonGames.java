@@ -4,22 +4,23 @@ import eu.hansolo.tilesfx.Command;
 import org.danielsa.proiect_ps.model.UserModel;
 import org.danielsa.proiect_ps.model.UserType;
 import org.danielsa.proiect_ps.controller.GameController;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 
 public class CommandLoadWonGames implements Command {
-    private final GameController viewModel;
+    private final GameController controller;
 
-    public CommandLoadWonGames(GameController viewModel) {
-        this.viewModel = viewModel;
+    public CommandLoadWonGames(GameController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        UserModel user = viewModel.getModel().getUser();
+        UserModel user = controller.getModel().getUser();
         int gamesWon = user.getGamesWon();
         if (user.getUserType().equals(UserType.PLAYER)) {
-            viewModel.getGameswonProperty().setValue("Games won : " + gamesWon);
+            controller.getGameswonProperty().setValue(LanguageManager.getString("gamesWonText") + gamesWon);
         }else {
-            viewModel.getGameswonProperty().setValue("Games won : " + gamesWon);
+            controller.getGameswonProperty().setValue(LanguageManager.getString("gamesWonText") + gamesWon);
         }
     }
 }

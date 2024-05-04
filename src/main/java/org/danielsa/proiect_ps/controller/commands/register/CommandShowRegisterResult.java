@@ -2,29 +2,30 @@ package org.danielsa.proiect_ps.controller.commands.register;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 import org.danielsa.proiect_ps.view.GameView;
 import org.danielsa.proiect_ps.controller.RegisterController;
 
 public class CommandShowRegisterResult implements Command {
-    private final RegisterController viewModel;
+    private final RegisterController controller;
 
-    public CommandShowRegisterResult(RegisterController viewModel) {
-        this.viewModel = viewModel;
+    public CommandShowRegisterResult(RegisterController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        boolean success = viewModel.getModel().register(viewModel.getUsernameProperty().getValue(), viewModel.getPasswordProperty().getValue(), viewModel.getUserTypeProperty().getValue());
+        boolean success = controller.getModel().register(controller.getUsernameProperty().getValue(), controller.getPasswordProperty().getValue(), controller.getUserTypeProperty().getValue());
 
         if (success) {
             GameView view = new GameView();
             Stage gameStage = new Stage();
 
             gameStage.setScene(view);
-            gameStage.setTitle("Arrow Game");
+            gameStage.setTitle(LanguageManager.getString("arrowGame"));
             gameStage.show();
         } else {
-            viewModel.getResultLabelProperty().setValue("Register failed. Please try again.");
+            controller.getResultLabelProperty().setValue(LanguageManager.getString("registerFailed"));
         }
     }
 }

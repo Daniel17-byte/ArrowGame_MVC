@@ -13,50 +13,51 @@ import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.model.ArrowModel;
 import org.danielsa.proiect_ps.model.MoveModel;
 import org.danielsa.proiect_ps.controller.GameController;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 
 import java.io.File;
 
 public class CommandUserRegisterMove {
-    private final GameController viewModel;
+    private final GameController controller;
 
-    public CommandUserRegisterMove(GameController viewModel) {
-        this.viewModel = viewModel;
+    public CommandUserRegisterMove(GameController controller) {
+        this.controller = controller;
     }
 
     public void execute(int row, int column) {
-        boolean valid = viewModel.getModel().makeUserMove(new MoveModel(row, column, new ArrowModel(viewModel.getModel().getUserPlayer().getColor(), viewModel.getSelectedDirectionProperty().getValue())));
+        boolean valid = controller.getModel().makeUserMove(new MoveModel(row, column, new ArrowModel(controller.getModel().getUserPlayer().getColor(), controller.getSelectedDirectionProperty().getValue())));
 
         if(!valid) {
-            signalInvalidMove("Invalid Move.");
+            signalInvalidMove(LanguageManager.getString("invalidMove"));
             return;
         }
 
-        if(viewModel.getSelectedDirectionProperty().getValue() == null){
-            signalInvalidMove("Direction not selected.");
+        if(controller.getSelectedDirectionProperty().getValue() == null){
+            signalInvalidMove(LanguageManager.getString("directionNotSelected"));
             return;
         }
 
-        placeArrow(viewModel.getModel().getUserPlayer().getColor(), viewModel.getSelectedDirectionProperty().getValue(), row, column);
+        placeArrow(controller.getModel().getUserPlayer().getColor(), controller.getSelectedDirectionProperty().getValue(), row, column);
 
-        if(viewModel.getModel().isEndgame()) {
-            signalEndgame("User");
+        if(controller.getModel().isEndgame()) {
+            signalEndgame(LanguageManager.getString("user"));
             return;
         }
 
-        MoveModel moveModel = viewModel.getModel().getSystemMove();
+        MoveModel moveModel = controller.getModel().getSystemMove();
         if (moveModel != null){
-            placeArrow(viewModel.getModel().getComputer().getColor(), moveModel.getArrowModel().getDirection(), moveModel.getX(), moveModel.getY());
+            placeArrow(controller.getModel().getComputer().getColor(), moveModel.getArrowModel().getDirection(), moveModel.getX(), moveModel.getY());
         }
 
-        if(viewModel.getModel().isEndgame()){
-            signalEndgame("Computer");
+        if(controller.getModel().isEndgame()){
+            signalEndgame(LanguageManager.getString("computer"));
         }
     }
 
     private void placeArrow(String color, String direction, int row, int column){
         Image image = new Image(new File(Main.path + color + direction + ".png").toURI().toString());
 
-        viewModel.getBoardProperty().getValue().getChildren().stream()
+        controller.getBoardProperty().getValue().getChildren().stream()
                 .filter(node -> node instanceof ImageView)
                 .map(node -> (ImageView) node)
                 .filter(imageView -> {
@@ -70,7 +71,7 @@ public class CommandUserRegisterMove {
 
     private void signalInvalidMove(String message) {
         final Stage dialog = new Stage();
-        dialog.setTitle("Error.");
+        dialog.setTitle(LanguageManager.getString("error"));
         dialog.setX(950);
         dialog.setY(300);
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -86,27 +87,27 @@ public class CommandUserRegisterMove {
 
     private void signalEndgame(String winner) {
         final Stage dialog = new Stage();
-        dialog.setTitle("Game end.");
+        dialog.setTitle(LanguageManager.getString("endGame"));
         dialog.setX(950);
         dialog.setY(300);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.centerOnScreen();
         VBox dialogVbox = new VBox(20);
         dialogVbox.setAlignment(Pos.CENTER);
-        if(winner.equals("User")){
-            winner = viewModel.getModel().getUser().getUserName();
+        if(winner.equals(LanguageManager.getString("user"))){
+            winner = controller.getModel().getUser().getUserName();
         }
-        dialogVbox.getChildren().add(new Text(winner.toUpperCase() + " wins!"));
+        dialogVbox.getChildren().add(new Text(winner.toUpperCase() + LanguageManager.getString("wins")));
         Scene dialogScene = new Scene(dialogVbox, 150, 100);
         dialogVbox.setOnMouseClicked(e -> {
             dialog.close();
-            viewModel.clearBoard();
+            controller.clearBoard();
         });
         dialog.setScene(dialogScene);
         dialog.show();
-        if (!winner.equalsIgnoreCase("COMPUTER")){
-            viewModel.getModel().updateUserScore();
+        if (!winner.equalsIgnoreCase(LanguageManager.getString("computer"))){
+            controller.getModel().updateUserScore();
         }
-        viewModel.loadWonGames();
+        controller.loadWonGames();
     }
 }

@@ -2,6 +2,7 @@ package org.danielsa.proiect_ps.controller.commands.login;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 import org.danielsa.proiect_ps.view.RegisterView;
 
 public class CommandOpenRegisterWindow implements Command {
@@ -15,7 +16,7 @@ public class CommandOpenRegisterWindow implements Command {
         Stage registerStage = new Stage();
 
         registerStage.setScene(view);
-        registerStage.setTitle("Register");
+        registerStage.setTitle(LanguageManager.getString("registerButton"));
         registerStage.show();
     }
 }

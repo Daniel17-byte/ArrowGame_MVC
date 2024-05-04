@@ -6,13 +6,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.danielsa.proiect_ps.controller.LoginController;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 
 public class LoginView extends Scene implements Observer {
-    private final LoginController viewModel;
+    private final LoginController controller;
 
     public LoginView() {
         super(new VBox(), 300, 200);
-        this.viewModel = new LoginController();
+        this.controller = new LoginController();
         initComponents();
     }
 
@@ -28,22 +29,22 @@ public class LoginView extends Scene implements Observer {
         root.setPadding(new Insets(10));
 
         usernameField = new TextField();
-        usernameField.setPromptText("Username");
+        usernameField.setPromptText(LanguageManager.getString("usernameField"));
 
         passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        passwordField.setPromptText(LanguageManager.getString("passwordField"));
 
-        loginButton = new Button("Login");
+        loginButton = new Button(LanguageManager.getString("loginButton"));
 
-        registerButton = new Button("Register");
+        registerButton = new Button(LanguageManager.getString("registerButton"));
 
-        loginButton.setOnAction(event -> viewModel.showLoginResult());
+        loginButton.setOnAction(event -> controller.showLoginResult());
 
-        registerButton.setOnAction(event -> viewModel.openRegisterWindow());
+        registerButton.setOnAction(event -> controller.openRegisterWindow());
 
-        Bindings.bindBidirectional(resultLabel.textProperty(), viewModel.getResultLabelProperty());
-        Bindings.bindBidirectional(usernameField.textProperty(), viewModel.getUsernameProperty());
-        Bindings.bindBidirectional(passwordField.textProperty(), viewModel.getPasswordProperty());
+        Bindings.bindBidirectional(resultLabel.textProperty(), controller.getResultLabelProperty());
+        Bindings.bindBidirectional(usernameField.textProperty(), controller.getUsernameProperty());
+        Bindings.bindBidirectional(passwordField.textProperty(), controller.getPasswordProperty());
 
         root.getChildren().addAll(usernameField, passwordField, loginButton, resultLabel, registerButton);
     }

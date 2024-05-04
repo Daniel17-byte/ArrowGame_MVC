@@ -6,22 +6,22 @@ import org.danielsa.proiect_ps.model.UserModel;
 import org.danielsa.proiect_ps.controller.AdminController;
 
 public class CommandAddUser implements Command {
-    private final AdminController viewModel;
-    public CommandAddUser(AdminController viewModel){
-        this.viewModel = viewModel;
+    private final AdminController controller;
+    public CommandAddUser(AdminController controller){
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        boolean success = viewModel.getModel().register(
-                viewModel.getUsernameProperty().getValue(),
-                viewModel.getPasswordProperty().getValue(),
-                viewModel.getUserTypeProperty().getValue()
+        boolean success = controller.getModel().register(
+                controller.getUsernameProperty().getValue(),
+                controller.getPasswordProperty().getValue(),
+                controller.getUserTypeProperty().getValue()
         );
 
         if (success) {
-            TableView<UserModel> tableView = viewModel.getUserTableViewProperty().getValue();
-            tableView.getItems().addAll(viewModel.getModel().getUserByUsername(viewModel.getUsernameProperty().getValue()));
+            TableView<UserModel> tableView = controller.getUserTableViewProperty().getValue();
+            tableView.getItems().addAll(controller.getModel().getUserByUsername(controller.getUsernameProperty().getValue()));
         } else {
             System.out.println("User not added!");
         }

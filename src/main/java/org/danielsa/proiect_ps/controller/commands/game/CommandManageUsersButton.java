@@ -2,6 +2,7 @@ package org.danielsa.proiect_ps.controller.commands.game;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 import org.danielsa.proiect_ps.view.AdminView;
 
 public class CommandManageUsersButton implements Command {
@@ -15,7 +16,7 @@ public class CommandManageUsersButton implements Command {
         Stage adminStage = new Stage();
 
         adminStage.setScene(view);
-        adminStage.setTitle("Admin Panel");
+        adminStage.setTitle(LanguageManager.getString("adminPanel"));
         adminStage.show();
     }
 }

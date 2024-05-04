@@ -2,29 +2,30 @@ package org.danielsa.proiect_ps.controller.commands.login;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 import org.danielsa.proiect_ps.view.GameView;
 import org.danielsa.proiect_ps.controller.LoginController;
 
 public class CommandShowLoginResult implements Command {
-    private final LoginController viewModel;
+    private final LoginController controller;
 
-    public CommandShowLoginResult(LoginController viewModel) {
-        this.viewModel = viewModel;
+    public CommandShowLoginResult(LoginController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
-        boolean success = viewModel.getModel().authenticate(viewModel.getUsernameProperty().getValue(), viewModel.getPasswordProperty().getValue());
+        boolean success = controller.getModel().authenticate(controller.getUsernameProperty().getValue(), controller.getPasswordProperty().getValue());
 
         if (success) {
             GameView view = new GameView();
             Stage gameStage = new Stage();
 
             gameStage.setScene(view);
-            gameStage.setTitle("Arrow Game");
+            gameStage.setTitle(LanguageManager.getString("arrowGame"));
             gameStage.show();
         } else {
-            viewModel.getResultLabelProperty().setValue("Login failed. Please try again.");
+            controller.getResultLabelProperty().setValue(LanguageManager.getString("loginFailed"));
         }
     }
 }

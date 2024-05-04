@@ -5,13 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.danielsa.proiect_ps.controller.RegisterController;
+import org.danielsa.proiect_ps.utils.LanguageManager;
 
 public class RegisterView extends Scene implements Observer {
-    private final RegisterController viewModel;
+    private final RegisterController controller;
 
     public RegisterView() {
         super(new VBox(), 300, 200);
-        this.viewModel = new RegisterController();
+        this.controller = new RegisterController();
         initComponents();
     }
 
@@ -25,22 +26,22 @@ public class RegisterView extends Scene implements Observer {
         VBox root = (VBox) getRoot();
         root.setSpacing(10);
         usernameField = new TextField();
-        usernameField.setPromptText("Username");
+        usernameField.setPromptText(LanguageManager.getString("usernameField"));
 
         passwordField = new PasswordField();
-        passwordField.setPromptText("Password");
+        passwordField.setPromptText(LanguageManager.getString("passwordField"));
 
-        userTypeComboBox.getItems().addAll("ADMIN", "PLAYER");
-        userTypeComboBox.setPromptText("Select User Type");
+        userTypeComboBox.getItems().addAll(LanguageManager.getStringForKey("userTypeComboBox", "valueAdmin"), LanguageManager.getStringForKey("userTypeComboBox", "valuePlayer"));
+        userTypeComboBox.setPromptText(LanguageManager.getStringForKey("userTypeComboBox", "label"));
 
-        registerButton = new Button("Register");
+        registerButton = new Button(LanguageManager.getString("registerButton"));
 
-        registerButton.setOnAction(event -> viewModel.showRegisterResult());
+        registerButton.setOnAction(event -> controller.showRegisterResult());
 
-        Bindings.bindBidirectional(resultLabel.textProperty(), viewModel.getResultLabelProperty());
-        Bindings.bindBidirectional(usernameField.textProperty(), viewModel.getUsernameProperty());
-        Bindings.bindBidirectional(passwordField.textProperty(), viewModel.getPasswordProperty());
-        Bindings.bindBidirectional(userTypeComboBox.valueProperty(), viewModel.getUserTypeProperty());
+        Bindings.bindBidirectional(resultLabel.textProperty(), controller.getResultLabelProperty());
+        Bindings.bindBidirectional(usernameField.textProperty(), controller.getUsernameProperty());
+        Bindings.bindBidirectional(passwordField.textProperty(), controller.getPasswordProperty());
+        Bindings.bindBidirectional(userTypeComboBox.valueProperty(), controller.getUserTypeProperty());
 
         root.getChildren().addAll(usernameField, passwordField, userTypeComboBox, registerButton);
     }

@@ -13,10 +13,10 @@ import org.danielsa.proiect_ps.controller.GameController;
 import java.io.File;
 
 public class CommandInitBoard {
-    private final GameController viewModel;
+    private final GameController controller;
 
-    public CommandInitBoard(GameController viewModel) {
-        this.viewModel = viewModel;
+    public CommandInitBoard(GameController controller) {
+        this.controller = controller;
     }
 
     public GridPane execute(String sizeS){
@@ -57,12 +57,14 @@ public class CommandInitBoard {
 
     private void clickedBoard(MouseEvent mouseEvent){
         EventTarget source = mouseEvent.getTarget();
-        if(!(source instanceof ImageView)){
+
+        if(!(source instanceof ImageView selectedImage)){
             return;
         }
-        ImageView selectedImage = (ImageView)source;
+
         int row = GridPane.getRowIndex(selectedImage);
         int col = GridPane.getColumnIndex(selectedImage);
-        viewModel.userRegisterMove(row, col);
+
+        controller.userRegisterMove(row, col);
     }
 }
