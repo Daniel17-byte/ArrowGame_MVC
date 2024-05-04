@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel;
+package org.danielsa.proiect_ps.controller;
 
 import javafx.beans.property.*;
 import javafx.scene.control.Button;
@@ -6,12 +6,12 @@ import javafx.scene.layout.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.danielsa.proiect_ps.model.*;
-import org.danielsa.proiect_ps.viewmodel.commands.game.*;
+import org.danielsa.proiect_ps.controller.commands.game.*;
 
 import java.util.HashMap;
 
 @Getter
-public class GameViewModel {
+public class GameController {
     private final GameModelInterface model;
     private final StringProperty selectedDirectionProperty = new SimpleStringProperty();
     private final StringProperty gameswonProperty = new SimpleStringProperty();
@@ -36,7 +36,7 @@ public class GameViewModel {
     private final CommandInitializeButton commandInitializeButton;
     private final CommandInitBoard commandInitBoard;
 
-    public GameViewModel() {
+    public GameController() {
         model = new GameModel();
         model.getComputer().setStrategy(new MinMaxStrategy(4, 10));
         this.commandStartGame = new CommandStartGame(this);

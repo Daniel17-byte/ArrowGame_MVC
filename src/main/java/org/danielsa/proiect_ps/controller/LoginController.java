@@ -1,15 +1,15 @@
-package org.danielsa.proiect_ps.viewmodel;
+package org.danielsa.proiect_ps.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import lombok.Getter;
 import org.danielsa.proiect_ps.model.LoginModel;
 import org.danielsa.proiect_ps.model.LoginModelInterface;
-import org.danielsa.proiect_ps.viewmodel.commands.login.CommandOpenRegisterWindow;
-import org.danielsa.proiect_ps.viewmodel.commands.login.CommandShowLoginResult;
+import org.danielsa.proiect_ps.controller.commands.login.CommandOpenRegisterWindow;
+import org.danielsa.proiect_ps.controller.commands.login.CommandShowLoginResult;
 
 @Getter
-public class LoginViewModel {
+public class LoginController {
     private final LoginModelInterface model;
     private final StringProperty resultLabelProperty = new SimpleStringProperty();
     private final StringProperty usernameProperty = new SimpleStringProperty();
@@ -17,7 +17,7 @@ public class LoginViewModel {
     private final CommandShowLoginResult commandShowLoginResult;
     private final CommandOpenRegisterWindow commandOpenRegisterWindow;
 
-    public LoginViewModel() {
+    public LoginController() {
         model = new LoginModel();
         this.commandShowLoginResult = new CommandShowLoginResult(this);
         this.commandOpenRegisterWindow = new CommandOpenRegisterWindow();

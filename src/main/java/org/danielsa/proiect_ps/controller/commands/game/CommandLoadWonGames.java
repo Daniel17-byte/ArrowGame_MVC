@@ -1,14 +1,14 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import eu.hansolo.tilesfx.Command;
 import org.danielsa.proiect_ps.model.UserModel;
 import org.danielsa.proiect_ps.model.UserType;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 public class CommandLoadWonGames implements Command {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandLoadWonGames(GameViewModel viewModel) {
+    public CommandLoadWonGames(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

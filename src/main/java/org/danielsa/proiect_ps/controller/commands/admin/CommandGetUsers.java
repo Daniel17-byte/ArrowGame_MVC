@@ -1,14 +1,14 @@
-package org.danielsa.proiect_ps.viewmodel.commands.admin;
+package org.danielsa.proiect_ps.controller.commands.admin;
 
 import org.danielsa.proiect_ps.model.UserModel;
-import org.danielsa.proiect_ps.viewmodel.AdminViewModel;
+import org.danielsa.proiect_ps.controller.AdminController;
 
 import java.util.ArrayList;
 
 public class CommandGetUsers {
-    private final AdminViewModel viewModel;
+    private final AdminController viewModel;
 
-    public CommandGetUsers(AdminViewModel viewModel) {
+    public CommandGetUsers(AdminController viewModel) {
         this.viewModel = viewModel;
     }
 

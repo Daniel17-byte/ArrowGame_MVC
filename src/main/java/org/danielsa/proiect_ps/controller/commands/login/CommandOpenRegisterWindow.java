@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel.commands.login;
+package org.danielsa.proiect_ps.controller.commands.login;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;

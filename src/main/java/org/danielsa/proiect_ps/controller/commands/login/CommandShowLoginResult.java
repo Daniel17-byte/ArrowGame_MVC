@@ -1,14 +1,14 @@
-package org.danielsa.proiect_ps.viewmodel.commands.login;
+package org.danielsa.proiect_ps.controller.commands.login;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;
 import org.danielsa.proiect_ps.view.GameView;
-import org.danielsa.proiect_ps.viewmodel.LoginViewModel;
+import org.danielsa.proiect_ps.controller.LoginController;
 
 public class CommandShowLoginResult implements Command {
-    private final LoginViewModel viewModel;
+    private final LoginController viewModel;
 
-    public CommandShowLoginResult(LoginViewModel viewModel) {
+    public CommandShowLoginResult(LoginController viewModel) {
         this.viewModel = viewModel;
     }
 

@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.scene.image.Image;
@@ -6,14 +6,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.model.MoveModel;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.io.File;
 
 public class CommandUndoMove implements Command {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandUndoMove(GameViewModel viewModel) {
+    public CommandUndoMove(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

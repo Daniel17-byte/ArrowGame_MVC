@@ -1,12 +1,12 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import eu.hansolo.tilesfx.Command;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 public class CommandStartGame implements Command {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandStartGame(GameViewModel viewModel) {
+    public CommandStartGame(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

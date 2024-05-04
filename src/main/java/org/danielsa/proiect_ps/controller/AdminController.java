@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel;
+package org.danielsa.proiect_ps.controller;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,15 +10,15 @@ import lombok.Setter;
 import org.danielsa.proiect_ps.model.AdminModel;
 import org.danielsa.proiect_ps.model.AdminModelInterface;
 import org.danielsa.proiect_ps.model.UserModel;
-import org.danielsa.proiect_ps.viewmodel.commands.admin.CommandAddUser;
-import org.danielsa.proiect_ps.viewmodel.commands.admin.CommandDeleteUser;
-import org.danielsa.proiect_ps.viewmodel.commands.admin.CommandGetUsers;
-import org.danielsa.proiect_ps.viewmodel.commands.admin.CommandUpdateUser;
+import org.danielsa.proiect_ps.controller.commands.admin.CommandAddUser;
+import org.danielsa.proiect_ps.controller.commands.admin.CommandDeleteUser;
+import org.danielsa.proiect_ps.controller.commands.admin.CommandGetUsers;
+import org.danielsa.proiect_ps.controller.commands.admin.CommandUpdateUser;
 
 import java.util.ArrayList;
 
 @Getter
-public class AdminViewModel {
+public class AdminController {
     private final AdminModelInterface model;
     private final StringProperty usernameProperty = new SimpleStringProperty();
     private final StringProperty passwordProperty = new SimpleStringProperty();
@@ -32,7 +32,7 @@ public class AdminViewModel {
     private final CommandDeleteUser commandDeleteUser;
     private final CommandGetUsers commandGetUsers;
 
-    public AdminViewModel() {
+    public AdminController() {
         this.model = new AdminModel();
         this.commandAddUser = new CommandAddUser(this);
         this.commandUpdateUser = new CommandUpdateUser(this);

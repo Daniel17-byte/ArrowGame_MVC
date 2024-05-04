@@ -7,17 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.danielsa.proiect_ps.model.UserType;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class GameView extends Scene {
-    private final GameViewModel viewModel;
+public class GameView extends Scene implements Observer {
+    private final GameController viewModel;
 
     public GameView() {
         super(new VBox(), 900, 500);
-        viewModel = new GameViewModel();
+        viewModel = new GameController();
         initComponents();
     }
 
@@ -205,4 +205,8 @@ public class GameView extends Scene {
         return centerPanel;
     }
 
+    @Override
+    public void update() {
+
+    }
 }

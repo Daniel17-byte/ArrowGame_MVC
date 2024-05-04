@@ -9,7 +9,7 @@ public interface GameModelInterface {
     MoveModel getSystemMove();
     MoveModel undo();
     UserPlayerModel getUserPlayer();
-    ComputerPlayerModelModel getComputer();
+    ComputerPlayerModel getComputer();
     boolean isEndgame();
     void clearBoard();
     void updateUserScore();

@@ -1,13 +1,13 @@
-package org.danielsa.proiect_ps.viewmodel.commands.admin;
+package org.danielsa.proiect_ps.controller.commands.admin;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.scene.control.TableView;
 import org.danielsa.proiect_ps.model.UserModel;
-import org.danielsa.proiect_ps.viewmodel.AdminViewModel;
+import org.danielsa.proiect_ps.controller.AdminController;
 
 public class CommandAddUser implements Command {
-    private final AdminViewModel viewModel;
-    public CommandAddUser(AdminViewModel viewModel){
+    private final AdminController viewModel;
+    public CommandAddUser(AdminController viewModel){
         this.viewModel = viewModel;
     }
 

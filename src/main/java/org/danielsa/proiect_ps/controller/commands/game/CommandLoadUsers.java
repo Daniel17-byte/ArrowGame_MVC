@@ -1,15 +1,15 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import eu.hansolo.tilesfx.Command;
 import org.danielsa.proiect_ps.model.UserModel;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.util.ArrayList;
 
 public class CommandLoadUsers implements Command {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandLoadUsers(GameViewModel viewModel) {
+    public CommandLoadUsers(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

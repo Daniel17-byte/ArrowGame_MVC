@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
@@ -8,14 +8,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.danielsa.proiect_ps.Main;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.io.File;
 
 public class CommandInitializeButton {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandInitializeButton(GameViewModel viewModel) {
+    public CommandInitializeButton(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

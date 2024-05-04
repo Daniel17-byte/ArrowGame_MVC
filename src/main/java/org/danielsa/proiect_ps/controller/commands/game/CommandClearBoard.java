@@ -1,17 +1,17 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.danielsa.proiect_ps.Main;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.io.File;
 
 public class CommandClearBoard implements Command {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandClearBoard(GameViewModel viewModel) {
+    public CommandClearBoard(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

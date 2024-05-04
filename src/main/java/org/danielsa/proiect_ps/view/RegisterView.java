@@ -4,14 +4,14 @@ import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import org.danielsa.proiect_ps.viewmodel.RegisterViewModel;
+import org.danielsa.proiect_ps.controller.RegisterController;
 
-public class RegisterView extends Scene {
-    private final RegisterViewModel viewModel;
+public class RegisterView extends Scene implements Observer {
+    private final RegisterController viewModel;
 
     public RegisterView() {
         super(new VBox(), 300, 200);
-        this.viewModel = new RegisterViewModel();
+        this.viewModel = new RegisterController();
         initComponents();
     }
 
@@ -43,5 +43,10 @@ public class RegisterView extends Scene {
         Bindings.bindBidirectional(userTypeComboBox.valueProperty(), viewModel.getUserTypeProperty());
 
         root.getChildren().addAll(usernameField, passwordField, userTypeComboBox, registerButton);
+    }
+
+    @Override
+    public void update() {
+
     }
 }

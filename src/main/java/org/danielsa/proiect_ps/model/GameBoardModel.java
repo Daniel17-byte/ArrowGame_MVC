@@ -1,14 +1,17 @@
 package org.danielsa.proiect_ps.model;
 
 import lombok.Getter;
+import org.danielsa.proiect_ps.view.Observer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-public class GameBoardModel implements GameBoardInterface {
+public class GameBoardModel implements GameBoardInterface, Subject {
     private final int size;
     private ArrowModel[][] board;
     private final ArrayList<String> directions;
+    private final List<Observer> observers = new ArrayList<>();
 
     public GameBoardModel(int size) {
         this.size = size;
@@ -104,5 +107,22 @@ public class GameBoardModel implements GameBoardInterface {
     @Override
     public void clearBoard() {
         this.board = new ArrowModel[size][size];
+    }
+
+    @Override
+    public void attach(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void detach(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
 }

@@ -5,14 +5,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import org.danielsa.proiect_ps.viewmodel.LoginViewModel;
+import org.danielsa.proiect_ps.controller.LoginController;
 
-public class LoginView extends Scene {
-    private final LoginViewModel viewModel;
+public class LoginView extends Scene implements Observer {
+    private final LoginController viewModel;
 
     public LoginView() {
         super(new VBox(), 300, 200);
-        this.viewModel = new LoginViewModel();
+        this.viewModel = new LoginController();
         initComponents();
     }
 
@@ -48,4 +48,8 @@ public class LoginView extends Scene {
         root.getChildren().addAll(usernameField, passwordField, loginButton, resultLabel, registerButton);
     }
 
+    @Override
+    public void update() {
+
+    }
 }

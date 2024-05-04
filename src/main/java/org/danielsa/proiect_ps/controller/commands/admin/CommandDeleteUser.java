@@ -1,12 +1,12 @@
-package org.danielsa.proiect_ps.viewmodel.commands.admin;
+package org.danielsa.proiect_ps.controller.commands.admin;
 
 import eu.hansolo.tilesfx.Command;
-import org.danielsa.proiect_ps.viewmodel.AdminViewModel;
+import org.danielsa.proiect_ps.controller.AdminController;
 
 public class CommandDeleteUser implements Command {
-    private final AdminViewModel viewModel;
+    private final AdminController viewModel;
 
-    public CommandDeleteUser(AdminViewModel viewModel) {
+    public CommandDeleteUser(AdminController viewModel) {
         this.viewModel = viewModel;
     }
 

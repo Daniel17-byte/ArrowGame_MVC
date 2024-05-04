@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,14 +12,14 @@ import javafx.stage.Stage;
 import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.model.ArrowModel;
 import org.danielsa.proiect_ps.model.MoveModel;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.io.File;
 
 public class CommandUserRegisterMove {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandUserRegisterMove(GameViewModel viewModel) {
+    public CommandUserRegisterMove(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

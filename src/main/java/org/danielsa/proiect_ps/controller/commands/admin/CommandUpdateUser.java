@@ -1,13 +1,13 @@
-package org.danielsa.proiect_ps.viewmodel.commands.admin;
+package org.danielsa.proiect_ps.controller.commands.admin;
 
 import eu.hansolo.tilesfx.Command;
 import org.danielsa.proiect_ps.model.UserModel;
-import org.danielsa.proiect_ps.viewmodel.AdminViewModel;
+import org.danielsa.proiect_ps.controller.AdminController;
 
 public class CommandUpdateUser implements Command {
-    private final AdminViewModel viewModel;
+    private final AdminController viewModel;
 
-    public CommandUpdateUser(AdminViewModel viewModel) {
+    public CommandUpdateUser(AdminController viewModel) {
         this.viewModel = viewModel;
     }
 

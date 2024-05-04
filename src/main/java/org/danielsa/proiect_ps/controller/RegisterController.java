@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel;
+package org.danielsa.proiect_ps.controller;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -7,10 +7,10 @@ import javafx.beans.property.StringProperty;
 import lombok.Getter;
 import org.danielsa.proiect_ps.model.RegisterModel;
 import org.danielsa.proiect_ps.model.RegisterModelInterface;
-import org.danielsa.proiect_ps.viewmodel.commands.register.CommandShowRegisterResult;
+import org.danielsa.proiect_ps.controller.commands.register.CommandShowRegisterResult;
 
 @Getter
-public class RegisterViewModel {
+public class RegisterController {
     private final RegisterModelInterface model;
     private final StringProperty resultLabelProperty = new SimpleStringProperty();
     private final StringProperty usernameProperty = new SimpleStringProperty();
@@ -18,7 +18,7 @@ public class RegisterViewModel {
     private final ObjectProperty<String> userTypeProperty = new SimpleObjectProperty<>();
     private final CommandShowRegisterResult commandShowRegisterResult;
 
-    public RegisterViewModel() {
+    public RegisterController() {
         this.model = new RegisterModel();
         this.commandShowRegisterResult = new CommandShowRegisterResult(this);
     }

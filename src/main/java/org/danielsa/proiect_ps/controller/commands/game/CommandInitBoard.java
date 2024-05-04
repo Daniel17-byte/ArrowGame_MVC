@@ -1,4 +1,4 @@
-package org.danielsa.proiect_ps.viewmodel.commands.game;
+package org.danielsa.proiect_ps.controller.commands.game;
 
 import javafx.event.EventTarget;
 import javafx.geometry.Insets;
@@ -8,14 +8,14 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import org.danielsa.proiect_ps.Main;
-import org.danielsa.proiect_ps.viewmodel.GameViewModel;
+import org.danielsa.proiect_ps.controller.GameController;
 
 import java.io.File;
 
 public class CommandInitBoard {
-    private final GameViewModel viewModel;
+    private final GameController viewModel;
 
-    public CommandInitBoard(GameViewModel viewModel) {
+    public CommandInitBoard(GameController viewModel) {
         this.viewModel = viewModel;
     }
 

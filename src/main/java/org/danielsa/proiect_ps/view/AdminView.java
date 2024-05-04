@@ -8,16 +8,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.danielsa.proiect_ps.model.UserModel;
-import org.danielsa.proiect_ps.viewmodel.AdminViewModel;
+import org.danielsa.proiect_ps.controller.AdminController;
 
 import java.util.Arrays;
 
-public class AdminView extends Scene {
-    private final AdminViewModel viewModel;
+public class AdminView extends Scene implements Observer {
+    private final AdminController viewModel;
 
     public AdminView() {
         super(new VBox(), 500, 500);
-        this.viewModel = new AdminViewModel();
+        this.viewModel = new AdminController();
         initComponents();
     }
 
@@ -77,4 +77,8 @@ public class AdminView extends Scene {
         setRoot(root);
     }
 
+    @Override
+    public void update() {
+
+    }
 }

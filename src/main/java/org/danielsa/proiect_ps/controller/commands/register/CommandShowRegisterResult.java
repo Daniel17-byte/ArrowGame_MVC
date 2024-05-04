@@ -1,14 +1,14 @@
-package org.danielsa.proiect_ps.viewmodel.commands.register;
+package org.danielsa.proiect_ps.controller.commands.register;
 
 import eu.hansolo.tilesfx.Command;
 import javafx.stage.Stage;
 import org.danielsa.proiect_ps.view.GameView;
-import org.danielsa.proiect_ps.viewmodel.RegisterViewModel;
+import org.danielsa.proiect_ps.controller.RegisterController;
 
 public class CommandShowRegisterResult implements Command {
-    private final RegisterViewModel viewModel;
+    private final RegisterController viewModel;
 
-    public CommandShowRegisterResult(RegisterViewModel viewModel) {
+    public CommandShowRegisterResult(RegisterController viewModel) {
         this.viewModel = viewModel;
     }
 
