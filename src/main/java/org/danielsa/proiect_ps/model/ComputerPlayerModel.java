@@ -16,7 +16,7 @@ public class ComputerPlayerModel extends UserPlayerModel implements Subject {
         this.strategy = new MinMaxStrategy(8,16);
     }
 
-    public MoveModel makeMove(GameBoardInterface board) {
+    public MoveModel makeMove(GameBoardModel board) {
         return strategy.makeMove(board);
     }
 

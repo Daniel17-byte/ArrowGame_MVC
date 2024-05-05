@@ -7,7 +7,7 @@ import org.danielsa.proiect_ps.view.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegisterModel implements RegisterModelInterface, Subject {
+public class RegisterModel implements Subject {
     private final DatabaseService databaseService;
     private final List<Observer> observers = new ArrayList<>();
 
@@ -15,7 +15,6 @@ public class RegisterModel implements RegisterModelInterface, Subject {
         this.databaseService = Main.context.getBean(DatabaseService.class);
     }
 
-    @Override
     public boolean register(String username, String password, String usertype) {
         return databaseService.register(username, password, usertype);
     }

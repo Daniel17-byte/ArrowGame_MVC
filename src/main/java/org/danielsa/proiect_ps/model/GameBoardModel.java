@@ -4,14 +4,17 @@ import lombok.Getter;
 import org.danielsa.proiect_ps.view.Observer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public class GameBoardModel implements GameBoardInterface, Subject {
+public class GameBoardModel implements Subject {
     private final int size;
     private ArrowModel[][] board;
     private final ArrayList<String> directions;
     private final List<Observer> observers = new ArrayList<>();
+    private final ArrayList<String> smallBoardDirections = new ArrayList<>(Arrays.asList("N", "S", "E", "W"));
+    private final ArrayList<String> largeBoardDirections = new ArrayList<>(Arrays.asList("N", "S", "E", "W", "NE", "NW", "SE", "SW"));
 
     public GameBoardModel(int size) {
         this.size = size;
@@ -27,11 +30,6 @@ public class GameBoardModel implements GameBoardInterface, Subject {
         for (int i = 0; i < this.size; i++) {
             System.arraycopy(gameBoard.board[i], 0, this.board[i], 0, this.size);
         }
-    }
-
-    @Override
-    public int getSize() {
-        return size;
     }
 
     public boolean makeMove(MoveModel moveModel) {
@@ -104,7 +102,6 @@ public class GameBoardModel implements GameBoardInterface, Subject {
         return getValidMoves().size();
     }
 
-    @Override
     public void clearBoard() {
         this.board = new ArrowModel[size][size];
     }

@@ -7,7 +7,7 @@ import org.danielsa.proiect_ps.view.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminModel implements AdminModelInterface, Subject {
+public class AdminModel implements Subject {
     private final DatabaseService databaseService;
 
     private final List<Observer> observers = new ArrayList<>();
@@ -16,27 +16,22 @@ public class AdminModel implements AdminModelInterface, Subject {
         this.databaseService = Main.context.getBean(DatabaseService.class);
     }
 
-    @Override
     public ArrayList<UserModel> getUsers() {
         return databaseService.getUsers();
     }
 
-    @Override
     public UserModel updateUser(String username, String newUsername, String newPassword, String newUserType) {
         return databaseService.updateUser(username, newUsername, newPassword, newUserType);
     }
 
-    @Override
     public boolean deleteUser(String username) {
         return databaseService.deleteUser(username);
     }
 
-    @Override
     public UserModel getUserByUsername(String username) {
         return databaseService.getUserByUsername(username);
     }
 
-    @Override
     public boolean register(String username, String password, String usertype) {
         return databaseService.register(username, password, usertype);
     }

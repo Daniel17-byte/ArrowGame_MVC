@@ -1,5 +1,6 @@
 package org.danielsa.proiect_ps.model;
 
+import lombok.Getter;
 import org.danielsa.proiect_ps.utils.DatabaseService;
 import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.view.Observer;
@@ -8,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class GameModel implements GameModelInterface, Subject {
+public class GameModel implements Subject {
+    @Getter
     private final ComputerPlayerModel computer;
+    @Getter
     private final UserPlayerModel player;
-    private GameBoardInterface board;
+    private GameBoardModel board;
     private final Stack<MoveModel> moveModelStack;
     private final DatabaseService databaseService;
     private final List<Observer> observers = new ArrayList<>();
@@ -32,7 +35,6 @@ public class GameModel implements GameModelInterface, Subject {
         return false;
     }
 
-    @Override
     public void changePlayerColor(UserPlayerModel player, String color) {
         if (!player.getColor().equals(color)) {
             computer.setColor(player.getColor());
@@ -40,9 +42,8 @@ public class GameModel implements GameModelInterface, Subject {
         }
     }
 
-    @Override
     public MoveModel getSystemMove() {
-        MoveModel moveModel = computer.makeMove(new GameBoardModel((GameBoardModel) (this.board)));
+        MoveModel moveModel = computer.makeMove(new GameBoardModel(this.board));
         if (moveModel != null) {
             moveModelStack.push(moveModel);
             board.makeMove(moveModel);
@@ -58,22 +59,10 @@ public class GameModel implements GameModelInterface, Subject {
         return moveModel;
     }
 
-    @Override
-    public UserPlayerModel getUserPlayer() {
-        return this.player;
-    }
-
-    @Override
-    public ComputerPlayerModel getComputer() {
-        return this.computer;
-    }
-
-    @Override
     public boolean isEndgame() {
         return this.board.noValidMoves() == 0;
     }
 
-    @Override
     public void clearBoard() {
         this.board.clearBoard();
         moveModelStack.clear();
@@ -85,17 +74,14 @@ public class GameModel implements GameModelInterface, Subject {
         this.board = new GameBoardModel(size);
     }
 
-    @Override
     public UserModel getUser() {
         return databaseService.getUser();
     }
 
-    @Override
     public void updateUserScore() {
         databaseService.updateUserScore();
     }
 
-    @Override
     public ArrayList<UserModel> getUsers() {
         return databaseService.getUsers();
     }

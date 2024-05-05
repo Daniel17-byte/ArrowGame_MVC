@@ -12,11 +12,11 @@ public class MinMaxStrategy {
         this.maxMoves = maxMoves;
     }
 
-    private int evaluationFunction(GameBoardInterface board) {
+    private int evaluationFunction(GameBoardModel board) {
         return board.noValidMoves();
     }
 
-    public MoveModel makeMove(GameBoardInterface board) {
+    public MoveModel makeMove(GameBoardModel board) {
         return board.getValidMoves().stream()
                 .limit(maxMoves)
                 .map(move -> {
@@ -30,7 +30,7 @@ public class MinMaxStrategy {
                 .orElse(null);
     }
 
-    private int minValue(GameBoardInterface board, int level) {
+    private int minValue(GameBoardModel board, int level) {
         if (level == maxDepth) return evaluationFunction(board);
 
         return getNElements(board.getValidMoves(), maxMoves).stream()
@@ -44,7 +44,7 @@ public class MinMaxStrategy {
                 .orElse(64);
     }
 
-    private int maxValue(GameBoardInterface board, int level) {
+    private int maxValue(GameBoardModel board, int level) {
         if(level == maxDepth) return evaluationFunction(board);
         return getNElements(board.getValidMoves(), maxMoves).stream()
                 .mapToInt(move -> {

@@ -7,7 +7,7 @@ import org.danielsa.proiect_ps.view.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginModel implements LoginModelInterface, Subject {
+public class LoginModel implements Subject {
     private final DatabaseService databaseService;
     private final List<Observer> observers = new ArrayList<>();
 
@@ -15,7 +15,6 @@ public class LoginModel implements LoginModelInterface, Subject {
         this.databaseService = Main.context.getBean(DatabaseService.class);
     }
 
-    @Override
     public boolean authenticate(String username, String password) {
         return databaseService.authenticate(username, password);
     }

@@ -28,7 +28,6 @@ module org.danielsa.proiect_ps {
     exports org.danielsa.proiect_ps.model;
     exports org.danielsa.proiect_ps.controller;
     opens org.danielsa.proiect_ps.model to javafx.fxml;
-    exports org.danielsa.proiect_ps.controller.commands.admin;
     exports org.danielsa.proiect_ps.utils;
     opens org.danielsa.proiect_ps.utils to javafx.fxml;
 }
