@@ -14,6 +14,7 @@ public class RegisterController {
     public RegisterController() {
         this.model = new RegisterModel();
         this.view = new RegisterView();
+        this.model.attach(this.view);
         initComponents();
     }
 
@@ -32,9 +33,8 @@ public class RegisterController {
             gameStage.setScene(controller.getView());
             gameStage.setTitle(LanguageManager.getString("arrowGame"));
             gameStage.show();
-        } else {
-            view.getResultLabel().setText(LanguageManager.getString("registerFailed"));
         }
+
     }
 
 }

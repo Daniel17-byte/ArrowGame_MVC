@@ -35,7 +35,9 @@ public class LoginView extends Scene implements Observer {
     }
 
     @Override
-    public void update() {
-
+    public void update(boolean success) {
+        if (!success) {
+            resultLabel.setText(LanguageManager.getString("loginFailed"));
+        }
     }
 }

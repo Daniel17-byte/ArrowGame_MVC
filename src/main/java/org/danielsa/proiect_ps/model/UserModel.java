@@ -1,24 +1,19 @@
 package org.danielsa.proiect_ps.model;
 
 import lombok.*;
-import org.danielsa.proiect_ps.view.Observer;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserModel implements Subject {
+public class UserModel {
     private String id;
     @Getter
     private String userName;
     private String password;
     private UserType userType;
     private int gamesWon;
-    private final List<Observer> observers = new ArrayList<>();
 
     public UserModel(String userName, String usertype, int gamesWon) {
         this.userName = userName;
@@ -48,20 +43,4 @@ public class UserModel implements Subject {
         return Objects.hash(id, userName, password, userType, gamesWon);
     }
 
-    @Override
-    public void attach(Observer o) {
-        observers.add(o);
-    }
-
-    @Override
-    public void detach(Observer o) {
-        observers.remove(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer observer : observers) {
-            observer.update();
-        }
-    }
 }

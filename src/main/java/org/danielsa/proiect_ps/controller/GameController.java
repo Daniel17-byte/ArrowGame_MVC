@@ -31,6 +31,7 @@ public class GameController {
         this.model = new GameModel();
         this.view = new GameView();
         this.model.getComputer().setStrategy(new MinMaxStrategy(4, 10));
+        this.model.attach(this.view);
         initComponents();
     }
 
@@ -134,7 +135,6 @@ public class GameController {
         if(!model.getPlayer().getColor().equals(color)) {
             model.getComputer().setColor(model.getPlayer().getColor());
             model.getComputer().setColor(color);
-            model.changePlayerColor(model.getComputer(), color);
         }
 
         String selectedBoard = view.getLevelSelectChoiceBox().getValue();

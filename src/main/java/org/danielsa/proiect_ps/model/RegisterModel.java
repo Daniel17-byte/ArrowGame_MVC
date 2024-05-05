@@ -16,7 +16,9 @@ public class RegisterModel implements Subject {
     }
 
     public boolean register(String username, String password, String usertype) {
-        return databaseService.register(username, password, usertype);
+        boolean success = databaseService.register(username, password, usertype);
+        notifyObservers(success);
+        return success;
     }
 
     @Override
@@ -30,9 +32,9 @@ public class RegisterModel implements Subject {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(boolean success) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(success);
         }
     }
 }

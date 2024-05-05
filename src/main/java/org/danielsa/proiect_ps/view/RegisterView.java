@@ -31,11 +31,13 @@ public class RegisterView extends Scene implements Observer {
         languageComboBox.getItems().addAll("ENGLISH", "ROMANIAN", "DEUTSCH", "ITALIAN", "FRENCH");
         languageComboBox.setPromptText("Language ");
 
-        root.getChildren().addAll(usernameField, passwordField, userTypeComboBox, languageComboBox, registerButton);
+        root.getChildren().addAll(usernameField, passwordField, userTypeComboBox, languageComboBox, registerButton, resultLabel);
     }
 
     @Override
-    public void update() {
-
+    public void update(boolean success) {
+        if (!success) {
+            resultLabel.setText(LanguageManager.getString("registerFailed"));
+        }
     }
 }

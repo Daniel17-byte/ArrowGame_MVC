@@ -229,7 +229,7 @@ public class GameView extends Scene implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(boolean success) {
 
     }
 }

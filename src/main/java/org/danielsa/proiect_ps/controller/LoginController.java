@@ -14,6 +14,7 @@ public class LoginController {
     public LoginController() {
         this.model = new LoginModel();
         this.view = new LoginView();
+        this.model.attach(this.view);
         initComponents();
     }
 
@@ -42,9 +43,8 @@ public class LoginController {
             gameStage.setScene(controller.getView());
             gameStage.setTitle(LanguageManager.getString("arrowGame"));
             gameStage.show();
-        } else {
-            view.getResultLabel().setText(LanguageManager.getString("loginFailed"));
         }
+
     }
 
 }

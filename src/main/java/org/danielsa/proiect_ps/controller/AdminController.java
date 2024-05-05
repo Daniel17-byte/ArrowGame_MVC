@@ -16,6 +16,7 @@ public class AdminController {
     public AdminController() {
         this.model = new AdminModel();
         this.view = new AdminView();
+        this.model.attach(this.view);
         initComponents();
     }
 

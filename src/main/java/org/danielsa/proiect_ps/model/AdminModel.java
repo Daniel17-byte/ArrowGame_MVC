@@ -17,23 +17,36 @@ public class AdminModel implements Subject {
     }
 
     public ArrayList<UserModel> getUsers() {
-        return databaseService.getUsers();
+        ArrayList<UserModel> users = databaseService.getUsers();
+        boolean success = !users.isEmpty();
+        notifyObservers(success);
+        return users;
     }
 
     public UserModel updateUser(String username, String newUsername, String newPassword, String newUserType) {
-        return databaseService.updateUser(username, newUsername, newPassword, newUserType);
+        UserModel user = databaseService.updateUser(username, newUsername, newPassword, newUserType);
+        boolean success = user.getUserName().equals(newUsername);
+        notifyObservers(success);
+        return user;
     }
 
     public boolean deleteUser(String username) {
-        return databaseService.deleteUser(username);
+        boolean success = databaseService.deleteUser(username);
+        notifyObservers(success);
+        return success;
     }
 
     public UserModel getUserByUsername(String username) {
-        return databaseService.getUserByUsername(username);
+        UserModel user = databaseService.getUserByUsername(username);
+        boolean success = user.getUserName().equals(username);
+        notifyObservers(success);
+        return user;
     }
 
     public boolean register(String username, String password, String usertype) {
-        return databaseService.register(username, password, usertype);
+        boolean success = databaseService.register(username, password, usertype);
+        notifyObservers(success);
+        return success;
     }
 
     @Override
@@ -47,9 +60,9 @@ public class AdminModel implements Subject {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(boolean success) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(success);
         }
     }
 }

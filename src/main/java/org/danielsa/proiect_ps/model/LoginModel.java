@@ -16,7 +16,9 @@ public class LoginModel implements Subject {
     }
 
     public boolean authenticate(String username, String password) {
-        return databaseService.authenticate(username, password);
+        boolean success = databaseService.authenticate(username, password);
+        notifyObservers(success);
+        return success;
     }
 
     @Override
@@ -30,9 +32,9 @@ public class LoginModel implements Subject {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(boolean success) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(success);
         }
     }
 }

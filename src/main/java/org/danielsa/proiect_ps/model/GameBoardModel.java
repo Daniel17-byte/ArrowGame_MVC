@@ -37,6 +37,7 @@ public class GameBoardModel implements Subject {
         int row = moveModel.getX();
         int column = moveModel.getY();
         board[row][column] = moveModel.getArrowModel();
+        notifyObservers(true);
         return true;
     }
 
@@ -44,6 +45,7 @@ public class GameBoardModel implements Subject {
         int row = moveModel.getX();
         int column = moveModel.getY();
         board[row][column] = null;
+        notifyObservers(true);
     }
 
     public boolean isValidMove(MoveModel moveModel) {
@@ -78,6 +80,7 @@ public class GameBoardModel implements Subject {
                 }
             }
         }
+        notifyObservers(true);
         return true;
     }
 
@@ -95,15 +98,18 @@ public class GameBoardModel implements Subject {
                 }
             }
         }
+        notifyObservers(true);
         return result;
     }
 
     public int noValidMoves() {
+        notifyObservers(true);
         return getValidMoves().size();
     }
 
     public void clearBoard() {
         this.board = new ArrowModel[size][size];
+        notifyObservers(true);
     }
 
     @Override
@@ -117,9 +123,9 @@ public class GameBoardModel implements Subject {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(boolean success) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(success);
         }
     }
 }
