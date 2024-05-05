@@ -1,50 +1,49 @@
 package org.danielsa.proiect_ps.controller;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 import lombok.Getter;
 import org.danielsa.proiect_ps.model.LoginModel;
 import org.danielsa.proiect_ps.utils.LanguageManager;
-import org.danielsa.proiect_ps.view.GameView;
-import org.danielsa.proiect_ps.view.RegisterView;
+import org.danielsa.proiect_ps.view.LoginView;
 
 @Getter
 public class LoginController {
     private final LoginModel model;
-    private final StringProperty resultLabelProperty = new SimpleStringProperty();
-    private final StringProperty usernameProperty = new SimpleStringProperty();
-    private final StringProperty passwordProperty = new SimpleStringProperty();
-    private final ObjectProperty<String> languageProperty = new SimpleObjectProperty<>();
+    private final LoginView view;
 
     public LoginController() {
-        model = new LoginModel();
+        this.model = new LoginModel();
+        this.view = new LoginView();
+        initComponents();
+    }
+
+    private void initComponents() {
+        view.getLoginButton().setOnAction(event -> showLoginResult());
+        view.getRegisterButton().setOnAction(event -> openRegisterWindow());
     }
 
     public void openRegisterWindow() {
-        RegisterView view = new RegisterView();
+        RegisterController controller = new RegisterController();
         Stage registerStage = new Stage();
 
-        registerStage.setScene(view);
+        registerStage.setScene(controller.getView());
         registerStage.setTitle(LanguageManager.getString("registerButton"));
         registerStage.show();
     }
 
     public void showLoginResult() {
-        LanguageManager.loadLanguage(LanguageManager.fromStringToLocale(getLanguageProperty().getValue()));
-        boolean success = getModel().authenticate(getUsernameProperty().getValue(), getPasswordProperty().getValue());
+        LanguageManager.loadLanguage(LanguageManager.fromStringToLocale(view.getLanguageComboBox().getValue()));
+        boolean success = getModel().authenticate(view.getUsernameField().getText(), view.getPasswordField().getText());
 
         if (success) {
-            GameView view = new GameView();
+            GameController controller = new GameController();
             Stage gameStage = new Stage();
 
-            gameStage.setScene(view);
+            gameStage.setScene(controller.getView());
             gameStage.setTitle(LanguageManager.getString("arrowGame"));
             gameStage.show();
         } else {
-            getResultLabelProperty().setValue(LanguageManager.getString("loginFailed"));
+            view.getResultLabel().setText(LanguageManager.getString("loginFailed"));
         }
     }
 

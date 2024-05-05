@@ -2,9 +2,9 @@ package org.danielsa.proiect_ps;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.danielsa.proiect_ps.controller.LoginController;
 import org.danielsa.proiect_ps.utils.CustomLocale;
 import org.danielsa.proiect_ps.utils.LanguageManager;
-import org.danielsa.proiect_ps.view.LoginView;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Properties;
@@ -17,9 +17,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         LanguageManager.loadLanguage(CustomLocale.ENGLISH);
 
-        LoginView view = new LoginView();
+        LoginController loginController = new LoginController();
 
-        primaryStage.setScene(view);
+        primaryStage.setScene(loginController.getView());
         primaryStage.setTitle(LanguageManager.getString("loginButton"));
         primaryStage.show();
     }

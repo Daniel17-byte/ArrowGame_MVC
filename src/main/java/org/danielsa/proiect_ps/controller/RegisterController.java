@@ -1,41 +1,39 @@
 package org.danielsa.proiect_ps.controller;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.stage.Stage;
 import lombok.Getter;
 import org.danielsa.proiect_ps.model.RegisterModel;
 import org.danielsa.proiect_ps.utils.LanguageManager;
-import org.danielsa.proiect_ps.view.GameView;
+import org.danielsa.proiect_ps.view.RegisterView;
 
 @Getter
 public class RegisterController {
     private final RegisterModel model;
-    private final StringProperty resultLabelProperty = new SimpleStringProperty();
-    private final StringProperty usernameProperty = new SimpleStringProperty();
-    private final StringProperty passwordProperty = new SimpleStringProperty();
-    private final ObjectProperty<String> userTypeProperty = new SimpleObjectProperty<>();
-    private final ObjectProperty<String> languageProperty = new SimpleObjectProperty<>();
+    private final RegisterView view;
 
     public RegisterController() {
         this.model = new RegisterModel();
+        this.view = new RegisterView();
+        initComponents();
+    }
+
+    private void initComponents() {
+        view.getRegisterButton().setOnAction(event -> showRegisterResult());
     }
 
     public void showRegisterResult() {
-        boolean success = model.register(getUsernameProperty().getValue(), getPasswordProperty().getValue(), getUserTypeProperty().getValue());
+        boolean success = model.register(view.getUsernameField().getText(), view.getPasswordField().getText(), view.getUserTypeComboBox().getValue());
 
         if (success) {
-            LanguageManager.loadLanguage(LanguageManager.fromStringToLocale(getLanguageProperty().getValue()));
-            GameView view = new GameView();
+            LanguageManager.loadLanguage(LanguageManager.fromStringToLocale(view.getLanguageComboBox().getValue()));
+            GameController controller = new GameController();
             Stage gameStage = new Stage();
 
-            gameStage.setScene(view);
+            gameStage.setScene(controller.getView());
             gameStage.setTitle(LanguageManager.getString("arrowGame"));
             gameStage.show();
         } else {
-            getResultLabelProperty().setValue(LanguageManager.getString("registerFailed"));
+            view.getResultLabel().setText(LanguageManager.getString("registerFailed"));
         }
     }
 
