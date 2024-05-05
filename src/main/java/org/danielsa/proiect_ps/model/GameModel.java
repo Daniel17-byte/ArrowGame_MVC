@@ -11,9 +11,9 @@ import java.util.Stack;
 
 public class GameModel implements Subject {
     @Getter
-    private final ComputerPlayerModel computer;
+    private final ComputerModel computer;
     @Getter
-    private final UserPlayerModel player;
+    private final PlayerModel player;
     private GameBoardModel board;
     private final Stack<MoveModel> moveModelStack;
     private final DatabaseService databaseService;
@@ -21,8 +21,8 @@ public class GameModel implements Subject {
 
     public GameModel() {
         this.databaseService = Main.context.getBean(DatabaseService.class);
-        this.computer = new ComputerPlayerModel("r");
-        this.player = new UserPlayerModel("g");
+        this.computer = new ComputerModel("r");
+        this.player = new PlayerModel("g");
         this.board = new GameBoardModel(8);
         this.moveModelStack = new Stack<>();
     }
@@ -35,7 +35,7 @@ public class GameModel implements Subject {
         return false;
     }
 
-    public void changePlayerColor(UserPlayerModel player, String color) {
+    public void changePlayerColor(PlayerModel player, String color) {
         if (!player.getColor().equals(color)) {
             computer.setColor(player.getColor());
             player.setColor(color);

@@ -1,21 +1,24 @@
 package org.danielsa.proiect_ps.model;
 
-import lombok.Getter;
 import lombok.Setter;
+import org.danielsa.proiect_ps.utils.MinMaxStrategy;
 import org.danielsa.proiect_ps.view.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Setter
-@Getter
-public class UserPlayerModel implements Subject {
-    private String color;
-    private UserModel user;
+public class ComputerModel extends PlayerModel implements Subject {
+    private MinMaxStrategy strategy;
     private final List<Observer> observers = new ArrayList<>();
 
-    public UserPlayerModel(String color) {
-        this.color = color;
+    public ComputerModel(String color) {
+        super(color);
+        this.strategy = new MinMaxStrategy(8,16);
+    }
+
+    public MoveModel makeMove(GameBoardModel board) {
+        return strategy.makeMove(board);
     }
 
     @Override

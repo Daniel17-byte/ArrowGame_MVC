@@ -1,4 +1,7 @@
-package org.danielsa.proiect_ps.model;
+package org.danielsa.proiect_ps.utils;
+
+import org.danielsa.proiect_ps.model.GameBoardModel;
+import org.danielsa.proiect_ps.model.MoveModel;
 
 import java.util.*;
 import java.util.stream.IntStream;

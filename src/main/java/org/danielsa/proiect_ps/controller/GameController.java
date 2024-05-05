@@ -22,6 +22,7 @@ import lombok.Setter;
 import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.model.*;
 import org.danielsa.proiect_ps.utils.LanguageManager;
+import org.danielsa.proiect_ps.utils.MinMaxStrategy;
 import org.danielsa.proiect_ps.view.AdminView;
 
 import java.io.File;
