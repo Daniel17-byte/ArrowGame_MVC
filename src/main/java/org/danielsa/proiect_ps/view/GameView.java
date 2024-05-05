@@ -1,24 +1,49 @@
 package org.danielsa.proiect_ps.view;
 
-import javafx.beans.binding.Bindings;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import org.danielsa.proiect_ps.model.UserType;
-import org.danielsa.proiect_ps.controller.GameController;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import lombok.Getter;
+import lombok.Setter;
+import org.danielsa.proiect_ps.Main;
 import org.danielsa.proiect_ps.utils.LanguageManager;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+@Getter
 public class GameView extends Scene implements Observer {
-    private final GameController controller;
+    private final Button startGameButton = new Button(LanguageManager.getString("startGameButton"));
+    private final Button restartButton = new Button(LanguageManager.getString("restartButton"));
+    private final Button undoButton = new Button(LanguageManager.getString("undoButton"));
+    private final Button manageUsersButton = new Button(LanguageManager.getString("manageUsersButton"));
+    private final HashMap<String, Button> buttons = new LinkedHashMap<>();
+    private final TextField gamesWonText = new TextField();
+    private final TextField selectedDirection = new TextField();
+    private final ChoiceBox<String> levelSelectChoiceBox  = new ChoiceBox<>();
+    private final TextArea usersPane = new TextArea("");
+    private final BorderPane borderPane = new BorderPane();
+    private final BorderPane rightPane = new BorderPane();
+    private final Label greetingLabel = new Label();
+    @Setter
+    private GridPane board = new GridPane();
+    @Setter
+    private GridPane gridLargeBoard = new GridPane();
+    @Setter
+    private GridPane gridSmallBoard = new GridPane();
 
     public GameView() {
         super(new VBox(), 900, 500);
-        controller = new GameController();
         initComponents();
     }
 
@@ -29,56 +54,38 @@ public class GameView extends Scene implements Observer {
         VBox rightPane;
         VBox bottomPane;
 
-        HashMap<String, Button> buttons = new LinkedHashMap<>();
-        TextField gamesWonText = new TextField();
-        TextField selectedDirection = new TextField();
-        ChoiceBox<String> levelSelectChoiceBox  = new ChoiceBox<>();
-        TextArea usersPane = new TextArea("");
-        BorderPane borderPane = new BorderPane();
         borderPane.setStyle("-fx-background-color: #9db98a;");
         borderPane.setVisible(true);
 
-        buttons.put("n", new Button("N"));
-        buttons.put("nE", new Button("NE"));
-        buttons.put("e", new Button("E"));
-        buttons.put("sE", new Button("SE"));
-        buttons.put("s", new Button("S"));
-        buttons.put("sW", new Button("SW"));
-        buttons.put("w", new Button("W"));
-        buttons.put("nW", new Button("NW"));
+        String[] directions = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
+        for (String direction : directions) {
+            buttons.put(direction, new Button(direction));
+        }
 
-        controller.getBoardProperty().setValue(new GridPane());
-        controller.getGridSmallBoardProperty().setValue(controller.initBoard("small"));
-        controller.getGridLargeBoardProperty().setValue(controller.initBoard("large"));
+        buttons.forEach( (k, b) -> initializeButton(b));
 
         VBox root = (VBox) getRoot();
 
         topPane = createTopPanel();
         borderPane.setTop(topPane);
 
-        leftPane = createLeftPane(levelSelectChoiceBox, borderPane);
+        leftPane = createLeftPane();
         borderPane.setLeft(leftPane);
 
-        rightPane = createRightPane(gamesWonText, usersPane);
+        rightPane = createRightPane();
         borderPane.setRight(rightPane);
 
         centerPane = createCenterPane();
         borderPane.setCenter(centerPane);
 
-        bottomPane = createBottomPane(buttons);
+        bottomPane = createBottomPane();
         borderPane.setBottom(bottomPane);
-
-        Bindings.bindBidirectional(gamesWonText.textProperty(), controller.getGameswonProperty());
-        Bindings.bindBidirectional(selectedDirection.textProperty(), controller.getSelectedDirectionProperty());
-        Bindings.bindBidirectional(usersPane.textProperty(), controller.getUsersPaneProperty());
-        Bindings.bindBidirectional(levelSelectChoiceBox.valueProperty(), controller.getLevelSelectChoiceBoxProperty());
 
         root.getChildren().add(borderPane);
     }
 
     private VBox createTopPanel() {
         VBox vBox = new VBox();
-        Label greetingLabel = new Label(LanguageManager.getString("greetingLabel") + " " + controller.getUser().getUserName().toUpperCase());
         vBox.setStyle(("-fx-background-color: #60c760;"));
 
         vBox.getChildren().add(greetingLabel);
@@ -86,25 +93,16 @@ public class GameView extends Scene implements Observer {
         return vBox;
     }
 
-    private VBox createLeftPane(ChoiceBox<String> levelSelectChoiceBox, BorderPane borderPane) {
-        Button startGameButton = new Button(LanguageManager.getString("startGameButton"));
-        Button restartButton = new Button(LanguageManager.getString("restartButton"));
-        Button undoButton = new Button(LanguageManager.getString("undoButton"));
-
+    private VBox createLeftPane() {
         VBox leftPanel = new VBox();
 
         AnchorPane leftPane = new AnchorPane();
         leftPane.setPrefSize(200, 500);
         leftPane.setStyle("-fx-background-color: grey;");
 
-        startGameButton.setOnAction(e -> {
-            controller.clickedStartGame();
-            borderPane.setCenter(controller.getBoardProperty().getValue());
-        });
         AnchorPane.setTopAnchor(startGameButton, 113.0);
         AnchorPane.setLeftAnchor(startGameButton, 22.0);
 
-        restartButton.setOnAction(e -> controller.clearBoard());
         AnchorPane.setTopAnchor(restartButton, 230.0);
         AnchorPane.setLeftAnchor(restartButton, 22.0);
 
@@ -117,7 +115,6 @@ public class GameView extends Scene implements Observer {
         AnchorPane.setTopAnchor(boardLabel, 153.0);
         AnchorPane.setLeftAnchor(boardLabel, 22.0);
 
-        undoButton.setOnAction(e -> controller.undoMove());
         AnchorPane.setTopAnchor(undoButton, 191.0);
         AnchorPane.setLeftAnchor(undoButton, 22.0);
 
@@ -129,12 +126,9 @@ public class GameView extends Scene implements Observer {
         return leftPanel;
     }
 
-    private VBox createRightPane(TextField gamesWonText, TextArea usersPane) {
-        Button manageUsersButton = new Button(LanguageManager.getString("manageUsersButton"));
-
+    private VBox createRightPane() {
         VBox rightPanel = new VBox();
 
-        BorderPane rightPane = new BorderPane();
         rightPane.setPrefSize(200, 500);
         rightPane.setStyle("-fx-background-color: grey;");
 
@@ -144,20 +138,6 @@ public class GameView extends Scene implements Observer {
         BorderPane.setMargin(gamesWonText, new Insets(20, 0, 0, 10));
         rightPane.setTop(gamesWonText);
 
-        controller.loadWonGames();
-
-        if (controller.getUser().getUserType().equals(UserType.ADMIN)) {
-            usersPane.setEditable(false);
-            usersPane.setPrefSize(180, 300);
-            BorderPane.setMargin(usersPane, new Insets(10, 0, 0, 10));
-            rightPane.setCenter(usersPane);
-            controller.loadUserList();
-
-            manageUsersButton.setOnAction(event -> controller.clickedManageUsersButton());
-            rightPane.setBottom(manageUsersButton);
-            BorderPane.setMargin(manageUsersButton, new Insets(10, 0, 0, 10));
-        }
-
         rightPanel.getChildren().add(rightPane);
         VBox.setMargin(rightPane, new Insets(0, 0, 0, 0));
         BorderPane.setAlignment(rightPane, Pos.CENTER_RIGHT);
@@ -165,18 +145,13 @@ public class GameView extends Scene implements Observer {
         return rightPanel;
     }
 
-    private VBox createBottomPane(HashMap<String, Button> buttons) {
+    private VBox createBottomPane() {
         VBox bottomPanel = new VBox();
 
         HBox buttonRow = new HBox();
         buttonRow.setSpacing(2);
 
-        buttons.forEach((key, value) -> {
-            controller.initializeButton(value);
-            buttonRow.getChildren().add(value);
-        });
-
-        controller.getButtonsProperty().setValue(buttons);
+        buttons.forEach((key, value) -> buttonRow.getChildren().add(value));
 
         AnchorPane bottomPane = new AnchorPane();
         bottomPane.setStyle("-fx-background-color: grey;");
@@ -196,14 +171,61 @@ public class GameView extends Scene implements Observer {
         VBox centerPanel = new VBox();
         BorderPane centerPane = new BorderPane();
         centerPane.setPrefSize(500, 500);
-        controller.getBoardProperty().getValue().setVisible(true);
-        controller.getBoardProperty().setValue(controller.getGridLargeBoardProperty().getValue());
-        centerPane.setCenter(controller.getBoardProperty().getValue());
+        board.setVisible(true);
+        board = gridLargeBoard;
+        centerPane.setCenter(board);
         centerPane.getCenter().setStyle("-fx-background-color: #9db98a;");
         centerPane.setVisible(true);
         centerPanel.getChildren().add(centerPane);
 
         return centerPanel;
+    }
+
+    public void initializeButton(Button button) {
+        button.setBackground(setBgImage(button.getText() + ".png"));
+        button.setVisible(true);
+        button.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);
+        button.setContentDisplay(javafx.scene.control.ContentDisplay.CENTER);
+        button.setLayoutX(113.0);
+        button.setLayoutY(13.0);
+        button.setMnemonicParsing(false);
+        button.setPrefHeight(50.0);
+        button.setPrefWidth(50.0);
+        button.setPrefWidth(50.0);
+        button.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+    }
+
+    private Background setBgImage(String name) {
+        BackgroundImage b = new BackgroundImage(new Image(new File(Main.path + "g" + name).toURI().toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        return new Background(b);
+    }
+
+    public void doButtonEffect(Button button) {
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.2), button);
+        scaleTransition.setFromX(1);
+        scaleTransition.setFromY(1);
+        scaleTransition.setToX(0.8);
+        scaleTransition.setToY(0.8);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.setCycleCount(2);
+
+        scaleTransition.play();
+    }
+
+    public void signalInvalidMove(String message) {
+        final Stage dialog = new Stage();
+        dialog.setTitle(LanguageManager.getString("error"));
+        dialog.setX(950);
+        dialog.setY(300);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.centerOnScreen();
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.setAlignment(Pos.CENTER);
+        dialogVbox.getChildren().add(new Text(message));
+        Scene dialogScene = new Scene(dialogVbox, 150, 100);
+        dialogVbox.setOnMouseClicked(mouseEvent -> dialog.close());
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     @Override
