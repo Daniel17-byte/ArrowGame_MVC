@@ -1,5 +1,5 @@
 package org.danielsa.proiect_ps.view;
 
-public interface Observer {
+public interface ObserverAuthenticate {
     void update(boolean success);
 }

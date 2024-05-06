@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Getter
-public class GameView extends Scene implements Observer {
+public class GameView extends Scene implements ObserverGame {
     private final Button startGameButton = new Button(LanguageManager.getString("startGameButton"));
     private final Button restartButton = new Button(LanguageManager.getString("restartButton"));
     private final Button undoButton = new Button(LanguageManager.getString("undoButton"));

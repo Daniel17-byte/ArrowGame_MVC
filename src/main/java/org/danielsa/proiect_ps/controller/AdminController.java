@@ -1,12 +1,9 @@
 package org.danielsa.proiect_ps.controller;
 
-import javafx.scene.control.TableView;
 import lombok.Getter;
 import org.danielsa.proiect_ps.model.AdminModel;
 import org.danielsa.proiect_ps.model.UserModel;
 import org.danielsa.proiect_ps.view.AdminView;
-
-import java.util.ArrayList;
 
 @Getter
 public class AdminController {
@@ -32,7 +29,7 @@ public class AdminController {
                 deleteUser();
             }
         });
-        view.getUserTableView().getItems().addAll(getUsers());
+        view.getUserTableView().getItems().addAll(model.getUsers());
         view.getUserTableView().getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> view.setSelectedUser(newVal));
 
     }
@@ -45,8 +42,7 @@ public class AdminController {
         );
 
         if (success) {
-            TableView<UserModel> tableView = view.getUserTableView();
-            tableView.getItems().addAll(model.getUserByUsername(view.getUserNameField().getText()));
+            view.getUserTableView().getItems().addAll(model.getUserByUsername(view.getUserNameField().getText()));
         } else {
             System.out.println("User not added!");
         }
@@ -75,14 +71,4 @@ public class AdminController {
         view.getUserTableView().getItems().remove(view.getUserTableView().getSelectionModel().getSelectedItem());
     }
 
-    public ArrayList<UserModel> getUsers(){
-        ArrayList<UserModel> users = model.getUsers();
-
-        if (users.isEmpty()){
-            System.out.println("Couldn't load users!");
-            return null;
-        }
-
-        return users;
-    }
 }

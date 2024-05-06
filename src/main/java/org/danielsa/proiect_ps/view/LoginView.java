@@ -8,7 +8,7 @@ import lombok.Getter;
 import org.danielsa.proiect_ps.utils.LanguageManager;
 
 @Getter
-public class LoginView extends Scene implements Observer {
+public class LoginView extends Scene implements ObserverAuthenticate {
     private final TextField usernameField = new TextField();
     private final PasswordField passwordField = new PasswordField();
     private final Button loginButton = new Button(LanguageManager.getString("loginButton"));

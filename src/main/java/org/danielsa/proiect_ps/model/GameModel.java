@@ -3,13 +3,13 @@ package org.danielsa.proiect_ps.model;
 import lombok.Getter;
 import org.danielsa.proiect_ps.utils.DatabaseService;
 import org.danielsa.proiect_ps.Main;
-import org.danielsa.proiect_ps.view.Observer;
+import org.danielsa.proiect_ps.view.ObserverGame;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public class GameModel implements Subject {
+public class GameModel implements SubjectGame {
     @Getter
     private final ComputerModel computer;
     @Getter
@@ -17,7 +17,7 @@ public class GameModel implements Subject {
     private GameBoardModel board;
     private final Stack<MoveModel> moveModelStack;
     private final DatabaseService databaseService;
-    private final List<Observer> observers = new ArrayList<>();
+    private final List<ObserverGame> observerGames = new ArrayList<>();
 
     public GameModel() {
         this.databaseService = Main.context.getBean(DatabaseService.class);
@@ -94,19 +94,19 @@ public class GameModel implements Subject {
     }
 
     @Override
-    public void attach(Observer o) {
-        observers.add(o);
+    public void attach(ObserverGame o) {
+        observerGames.add(o);
     }
 
     @Override
-    public void detach(Observer o) {
-        observers.remove(o);
+    public void detach(ObserverGame o) {
+        observerGames.remove(o);
     }
 
     @Override
     public void notifyObservers(boolean success) {
-        for (Observer observer : observers) {
-            observer.update(success);
+        for (ObserverGame observerGame : observerGames) {
+            observerGame.update(success);
         }
     }
 }

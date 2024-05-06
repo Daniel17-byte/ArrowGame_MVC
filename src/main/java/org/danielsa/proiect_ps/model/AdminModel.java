@@ -2,67 +2,61 @@ package org.danielsa.proiect_ps.model;
 
 import org.danielsa.proiect_ps.utils.DatabaseService;
 import org.danielsa.proiect_ps.Main;
-import org.danielsa.proiect_ps.view.Observer;
+import org.danielsa.proiect_ps.view.ObserverAdmin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminModel implements Subject {
+public class AdminModel implements SubjectAdmin {
     private final DatabaseService databaseService;
 
-    private final List<Observer> observers = new ArrayList<>();
+    private final List<ObserverAdmin> observerAdmins = new ArrayList<>();
 
     public AdminModel() {
         this.databaseService = Main.context.getBean(DatabaseService.class);
     }
 
     public ArrayList<UserModel> getUsers() {
-        ArrayList<UserModel> users = databaseService.getUsers();
-        boolean success = !users.isEmpty();
-        notifyObservers(success);
-        return users;
+        return databaseService.getUsers();
     }
 
     public UserModel updateUser(String username, String newUsername, String newPassword, String newUserType) {
         UserModel user = databaseService.updateUser(username, newUsername, newPassword, newUserType);
-        boolean success = user.getUserName().equals(newUsername);
-        notifyObservers(success);
+        boolean success = user != null && user.getUserName().equals(newUsername);
+        notifyObservers(success, "UPDATE");
         return user;
     }
 
     public boolean deleteUser(String username) {
         boolean success = databaseService.deleteUser(username);
-        notifyObservers(success);
+        notifyObservers(success, "DELETE");
         return success;
     }
 
     public UserModel getUserByUsername(String username) {
-        UserModel user = databaseService.getUserByUsername(username);
-        boolean success = user.getUserName().equals(username);
-        notifyObservers(success);
-        return user;
+        return databaseService.getUserByUsername(username);
     }
 
     public boolean register(String username, String password, String usertype) {
         boolean success = databaseService.register(username, password, usertype);
-        notifyObservers(success);
+        notifyObservers(success, "ADD");
         return success;
     }
 
     @Override
-    public void attach(Observer o) {
-        observers.add(o);
+    public void attach(ObserverAdmin o) {
+        observerAdmins.add(o);
     }
 
     @Override
-    public void detach(Observer o) {
-        observers.remove(o);
+    public void detach(ObserverAdmin o) {
+        observerAdmins.remove(o);
     }
 
     @Override
-    public void notifyObservers(boolean success) {
-        for (Observer observer : observers) {
-            observer.update(success);
+    public void notifyObservers(boolean success, String op) {
+        for (ObserverAdmin observer : observerAdmins) {
+            observer.update(success, op);
         }
     }
 }

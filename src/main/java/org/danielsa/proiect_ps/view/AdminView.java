@@ -14,7 +14,7 @@ import org.danielsa.proiect_ps.utils.LanguageManager;
 import java.util.Arrays;
 
 @Getter
-public class AdminView extends Scene implements Observer {
+public class AdminView extends Scene implements ObserverAdmin {
     private final TextField userNameField = new TextField();
     private final PasswordField passwordField = new PasswordField();
     private final ComboBox<String> userTypeComboBox = new ComboBox<>();
@@ -22,6 +22,7 @@ public class AdminView extends Scene implements Observer {
     private final Button updateButton = new Button(LanguageManager.getString("updateButton"));
     private final Button deleteButton = new Button(LanguageManager.getString("deleteButton"));
     private final TableView<UserModel> userTableView = new TableView<>();
+    private final Label resultLabel = new Label();
     @Setter
     private UserModel selectedUser;
 
@@ -50,6 +51,7 @@ public class AdminView extends Scene implements Observer {
                 new HBox(new Label(LanguageManager.getString("userNameColumn") + " "), userNameField),
                 new HBox(new Label(LanguageManager.getString("passwordField") + " "), passwordField),
                 new HBox(new Label(LanguageManager.getString("userTypeColumn") + " "), userTypeComboBox),
+                resultLabel,
                 new HBox(addButton, updateButton, deleteButton),
                 userTableView
         );
@@ -58,7 +60,17 @@ public class AdminView extends Scene implements Observer {
     }
 
     @Override
-    public void update(boolean success) {
+    public void update(boolean success, String op) {
+        if (!success && op.equals("UPDATE")) {
+            resultLabel.setText(LanguageManager.getString("updateButton") + " " + LanguageManager.getString("error"));
+        }
 
+        if (!success && op.equals("ADD")) {
+            resultLabel.setText(LanguageManager.getString("registerFailed"));
+        }
+
+        if (!success && op.equals("DELETE")) {
+            resultLabel.setText(LanguageManager.getString("deleteButton") + " " + LanguageManager.getString("error"));
+        }
     }
 }

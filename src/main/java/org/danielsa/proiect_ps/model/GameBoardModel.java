@@ -1,18 +1,18 @@
 package org.danielsa.proiect_ps.model;
 
 import lombok.Getter;
-import org.danielsa.proiect_ps.view.Observer;
+import org.danielsa.proiect_ps.view.ObserverGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public class GameBoardModel implements Subject {
+public class GameBoardModel implements SubjectGame {
     private final int size;
     private ArrowModel[][] board;
     private final ArrayList<String> directions;
-    private final List<Observer> observers = new ArrayList<>();
+    private final List<ObserverGame> observerGames = new ArrayList<>();
     private final ArrayList<String> smallBoardDirections = new ArrayList<>(Arrays.asList("N", "S", "E", "W"));
     private final ArrayList<String> largeBoardDirections = new ArrayList<>(Arrays.asList("N", "S", "E", "W", "NE", "NW", "SE", "SW"));
 
@@ -113,19 +113,19 @@ public class GameBoardModel implements Subject {
     }
 
     @Override
-    public void attach(Observer o) {
-        observers.add(o);
+    public void attach(ObserverGame o) {
+        observerGames.add(o);
     }
 
     @Override
-    public void detach(Observer o) {
-        observers.remove(o);
+    public void detach(ObserverGame o) {
+        observerGames.remove(o);
     }
 
     @Override
     public void notifyObservers(boolean success) {
-        for (Observer observer : observers) {
-            observer.update(success);
+        for (ObserverGame observerGame : observerGames) {
+            observerGame.update(success);
         }
     }
 }
