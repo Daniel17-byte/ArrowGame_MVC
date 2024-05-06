@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -53,6 +54,9 @@ public class GameView extends Scene implements ObserverGame {
         VBox centerPane;
         VBox rightPane;
         VBox bottomPane;
+
+        gridSmallBoard = initBoard("small");
+        gridLargeBoard = initBoard("large");
 
         borderPane.setStyle("-fx-background-color: #9db98a;");
         borderPane.setVisible(true);
@@ -235,6 +239,41 @@ public class GameView extends Scene implements ObserverGame {
         rightPane.setCenter(usersPane);
         rightPane.setBottom(manageUsersButton);
         BorderPane.setMargin(manageUsersButton, new Insets(10, 0, 0, 10));
+    }
+
+    public GridPane initBoard(String sizeS) {
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefSize(500, 500);
+
+        int size = 4;
+
+        if (sizeS.equals("large")){
+            size = 8;
+        }
+
+        for (int i = 0; i < size; i++) {
+            ColumnConstraints column = new ColumnConstraints();
+            column.setPercentWidth(100.0 / size);
+            gridPane.getColumnConstraints().add(column);
+        }
+
+        for (int i = 0; i < size; i++) {
+            RowConstraints row = new RowConstraints();
+            row.setPercentHeight(100.0 / size);
+            gridPane.getRowConstraints().add(row);
+        }
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                ImageView imageView = new ImageView(new File(Main.path + "img.png").toURI().toString());
+                imageView.setFitWidth(41.0);
+                imageView.setFitHeight(38.0);
+                GridPane.setMargin(imageView, new Insets(2));
+                gridPane.add(imageView, j, i);
+            }
+        }
+
+        return gridPane;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.danielsa.proiect_ps.controller;
 
 import javafx.event.EventTarget;
-import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -45,8 +44,18 @@ public class GameController {
         }));
         loadUserList();
         loadWonGames();
-        view.setGridSmallBoard(initBoard("small"));
-        view.setGridLargeBoard(initBoard("large"));
+        view.getBoard().getChildren().stream()
+                .filter(node -> node instanceof ImageView)
+                .map(node -> (ImageView) node)
+                .forEach(imageView -> imageView.setOnMouseClicked(this::clickedBoard));
+        view.getGridLargeBoard().getChildren().stream()
+                .filter(node -> node instanceof ImageView)
+                .map(node -> (ImageView) node)
+                .forEach(imageView -> imageView.setOnMouseClicked(this::clickedBoard));
+        view.getGridSmallBoard().getChildren().stream()
+                .filter(node -> node instanceof ImageView)
+                .map(node -> (ImageView) node)
+                .forEach(imageView -> imageView.setOnMouseClicked(this::clickedBoard));
         view.getGreetingLabel().setText(LanguageManager.getString("greetingLabel") + " " + model.getUser().getUserName().toUpperCase());
         if (model.getUser().getUserType().equals(UserType.ADMIN)) {
             view.setUsersPanel();
@@ -151,42 +160,6 @@ public class GameController {
         }else {
             view.setBoard(view.getGridLargeBoard());
         }
-    }
-
-    public GridPane initBoard(String sizeS) {
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefSize(500, 500);
-
-        int size = 4;
-
-        if (sizeS.equals("large")){
-            size = 8;
-        }
-
-        for (int i = 0; i < size; i++) {
-            ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(100.0 / size);
-            gridPane.getColumnConstraints().add(column);
-        }
-
-        for (int i = 0; i < size; i++) {
-            RowConstraints row = new RowConstraints();
-            row.setPercentHeight(100.0 / size);
-            gridPane.getRowConstraints().add(row);
-        }
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                ImageView imageView = new ImageView(new File(Main.path + "img.png").toURI().toString());
-                imageView.setOnMouseClicked(this::clickedBoard);
-                imageView.setFitWidth(41.0);
-                imageView.setFitHeight(38.0);
-                GridPane.setMargin(imageView, new Insets(2));
-                gridPane.add(imageView, j, i);
-            }
-        }
-
-        return gridPane;
     }
 
     private void placeArrow(String color, String direction, int row, int column) {
