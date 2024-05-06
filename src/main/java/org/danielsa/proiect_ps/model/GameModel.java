@@ -30,9 +30,9 @@ public class GameModel implements SubjectGame {
     public boolean makeUserMove(MoveModel moveModel) {
         if (this.board.makeMove(moveModel)) {
             moveModelStack.push(moveModel);
-            notifyObservers(true);
             return true;
         }
+        notifyObservers(false, "MOVE");
         return false;
     }
 
@@ -41,7 +41,6 @@ public class GameModel implements SubjectGame {
         if (moveModel != null) {
             moveModelStack.push(moveModel);
             board.makeMove(moveModel);
-            notifyObservers(true);
             return moveModel;
         }
         return null;
@@ -51,46 +50,36 @@ public class GameModel implements SubjectGame {
         if(moveModelStack.isEmpty()) return null;
         MoveModel moveModel = moveModelStack.pop();
         this.board.undoMove(moveModel);
-        notifyObservers(true);
         return moveModel;
     }
 
     public boolean isEndgame() {
         boolean success = this.board.noValidMoves() == 0;
-        notifyObservers(success);
+        notifyObservers(success, "ENDGAME");
         return success;
     }
 
     public void clearBoard() {
         this.board.clearBoard();
         moveModelStack.clear();
-        notifyObservers(true);
     }
 
     public void changeBoardSize(int size) {
         if(this.board.getSize() == size)
             return;
         this.board = new GameBoardModel(size);
-        notifyObservers(true);
     }
 
     public UserModel getUser() {
-        UserModel user = databaseService.getUser();
-        boolean success = user != null;
-        notifyObservers(success);
-        return user;
+        return databaseService.getUser();
     }
 
     public void updateUserScore() {
         databaseService.updateUserScore();
-        notifyObservers(true);
     }
 
     public ArrayList<UserModel> getUsers() {
-        ArrayList<UserModel> users = databaseService.getUsers();
-        boolean success = !users.isEmpty();
-        notifyObservers(success);
-        return users;
+        return databaseService.getUsers();
     }
 
     @Override
@@ -104,9 +93,9 @@ public class GameModel implements SubjectGame {
     }
 
     @Override
-    public void notifyObservers(boolean success) {
+    public void notifyObservers(boolean success, String op) {
         for (ObserverGame observerGame : observerGames) {
-            observerGame.update(success);
+            observerGame.update(success, op);
         }
     }
 }

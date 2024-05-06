@@ -1,5 +1,5 @@
 package org.danielsa.proiect_ps.view;
 
 public interface ObserverGame {
-    void update(boolean success);
+    void update(boolean success, String op);
 }

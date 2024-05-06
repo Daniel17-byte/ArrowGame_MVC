@@ -212,24 +212,39 @@ public class GameView extends Scene implements ObserverGame {
         scaleTransition.play();
     }
 
-    public void signalInvalidMove(String message) {
+    public void signalEndgame(String winner) {
         final Stage dialog = new Stage();
-        dialog.setTitle(LanguageManager.getString("error"));
+        dialog.setTitle(LanguageManager.getString("endGame"));
         dialog.setX(950);
         dialog.setY(300);
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.centerOnScreen();
         VBox dialogVbox = new VBox(20);
         dialogVbox.setAlignment(Pos.CENTER);
-        dialogVbox.getChildren().add(new Text(message));
+        dialogVbox.getChildren().add(new Text(winner.toUpperCase() + LanguageManager.getString("wins")));
         Scene dialogScene = new Scene(dialogVbox, 150, 100);
-        dialogVbox.setOnMouseClicked(mouseEvent -> dialog.close());
+        dialogVbox.setOnMouseClicked(e -> dialog.close());
         dialog.setScene(dialogScene);
         dialog.show();
     }
 
-    @Override
-    public void update(boolean success) {
+    public void setUsersPanel() {
+        usersPane.setEditable(false);
+        usersPane.setPrefSize(180, 300);
+        BorderPane.setMargin(usersPane, new Insets(10, 0, 0, 10));
+        rightPane.setCenter(usersPane);
+        rightPane.setBottom(manageUsersButton);
+        BorderPane.setMargin(manageUsersButton, new Insets(10, 0, 0, 10));
+    }
 
+    @Override
+    public void update(boolean success, String op) {
+        if (!success && op.equals("MOVE")){
+            greetingLabel.setText(LanguageManager.getString("invalidMove"));
+        }
+
+        if (!success && op.equals("ENDGAME")){
+            greetingLabel.setText(LanguageManager.getString("endGame"));
+        }
     }
 }

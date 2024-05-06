@@ -2,14 +2,10 @@ package org.danielsa.proiect_ps.controller;
 
 import javafx.event.EventTarget;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import org.danielsa.proiect_ps.Main;
@@ -53,33 +49,23 @@ public class GameController {
         view.setGridLargeBoard(initBoard("large"));
         view.getGreetingLabel().setText(LanguageManager.getString("greetingLabel") + " " + model.getUser().getUserName().toUpperCase());
         if (model.getUser().getUserType().equals(UserType.ADMIN)) {
-            view.getUsersPane().setEditable(false);
-            view.getUsersPane().setPrefSize(180, 300);
-            BorderPane.setMargin(view.getUsersPane(), new Insets(10, 0, 0, 10));
-            view.getRightPane().setCenter(view.getUsersPane());
-            view.getRightPane().setBottom(view.getManageUsersButton());
-            BorderPane.setMargin(view.getManageUsersButton(), new Insets(10, 0, 0, 10));
+            view.setUsersPanel();
         }
-
     }
 
     public void userRegisterMove(int row, int column) {
         boolean valid = model.makeUserMove(new MoveModel(row, column, new ArrowModel(model.getPlayer().getColor(), view.getSelectedDirection().getText())));
 
-        if(!valid) {
-            view.signalInvalidMove(LanguageManager.getString("invalidMove"));
-            return;
-        }
-
-        if(view.getSelectedDirection().getText() == null){
-            view.signalInvalidMove(LanguageManager.getString("directionNotSelected"));
+        if(!valid || view.getSelectedDirection().getText() == null){
             return;
         }
 
         placeArrow(model.getPlayer().getColor(), view.getSelectedDirection().getText(), row, column);
 
         if(model.isEndgame()) {
-            signalEndgame(LanguageManager.getString("user"));
+            view.signalEndgame(model.getUser().getUserName());
+            model.updateUserScore();
+            loadWonGames();
             return;
         }
 
@@ -89,7 +75,8 @@ public class GameController {
         }
 
         if(model.isEndgame()){
-            signalEndgame(LanguageManager.getString("computer"));
+            view.signalEndgame(LanguageManager.getString("computer"));
+            loadWonGames();
         }
     }
 
@@ -215,32 +202,6 @@ public class GameController {
                 })
                 .findFirst()
                 .ifPresent(imageView -> imageView.setImage(image));
-    }
-
-    private void signalEndgame(String winner) {
-        final Stage dialog = new Stage();
-        dialog.setTitle(LanguageManager.getString("endGame"));
-        dialog.setX(950);
-        dialog.setY(300);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.centerOnScreen();
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.setAlignment(Pos.CENTER);
-        if(winner.equals(LanguageManager.getString("user"))){
-            winner = model.getUser().getUserName();
-        }
-        dialogVbox.getChildren().add(new Text(winner.toUpperCase() + LanguageManager.getString("wins")));
-        Scene dialogScene = new Scene(dialogVbox, 150, 100);
-        dialogVbox.setOnMouseClicked(e -> {
-            dialog.close();
-            clearBoard();
-        });
-        dialog.setScene(dialogScene);
-        dialog.show();
-        if (!winner.equalsIgnoreCase(LanguageManager.getString("computer"))){
-            getModel().updateUserScore();
-        }
-        loadWonGames();
     }
 
     private void removeArrow(int row, int column) {

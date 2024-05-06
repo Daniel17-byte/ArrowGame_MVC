@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Getter
-public class GameBoardModel implements SubjectGame {
+public class GameBoardModel {
     private final int size;
     private ArrowModel[][] board;
     private final ArrayList<String> directions;
@@ -37,7 +37,6 @@ public class GameBoardModel implements SubjectGame {
         int row = moveModel.getX();
         int column = moveModel.getY();
         board[row][column] = moveModel.getArrowModel();
-        notifyObservers(true);
         return true;
     }
 
@@ -45,7 +44,6 @@ public class GameBoardModel implements SubjectGame {
         int row = moveModel.getX();
         int column = moveModel.getY();
         board[row][column] = null;
-        notifyObservers(true);
     }
 
     public boolean isValidMove(MoveModel moveModel) {
@@ -80,7 +78,7 @@ public class GameBoardModel implements SubjectGame {
                 }
             }
         }
-        notifyObservers(true);
+
         return true;
     }
 
@@ -98,34 +96,16 @@ public class GameBoardModel implements SubjectGame {
                 }
             }
         }
-        notifyObservers(true);
+
         return result;
     }
 
     public int noValidMoves() {
-        notifyObservers(true);
         return getValidMoves().size();
     }
 
     public void clearBoard() {
         this.board = new ArrowModel[size][size];
-        notifyObservers(true);
     }
 
-    @Override
-    public void attach(ObserverGame o) {
-        observerGames.add(o);
-    }
-
-    @Override
-    public void detach(ObserverGame o) {
-        observerGames.remove(o);
-    }
-
-    @Override
-    public void notifyObservers(boolean success) {
-        for (ObserverGame observerGame : observerGames) {
-            observerGame.update(success);
-        }
-    }
 }
